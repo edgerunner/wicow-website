@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import CowCount from '../components/CowCount';
 
 export default function Home() {
   return (
@@ -46,8 +47,9 @@ export default function Home() {
           <p>
             The benefit for you is that you can just stop thinking about things like calving, insemination and fever. The time you spend on just checking on those could be yours to work, play or rest as you see fit.
           </p>
-          </a>
-        </div>
+          <form>
+            <CowCount/>
+          </form>
         </section>
       </main>
 
