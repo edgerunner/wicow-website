@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import CowCount from '../components/CowCount';
+import BenefitCalculator from '../components/BenefitCalculator';
 
 export default function Home() {
   return (
@@ -48,7 +48,7 @@ export default function Home() {
             The benefit for you is that you can just stop thinking about things like calving, insemination and fever. The time you spend on just checking on those could be yours to work, play or rest as you see fit.
           </p>
           <form>
-            <CowCount/>
+            <BenefitCalculator/>
           </form>
         </section>
       </main>
@@ -98,12 +98,19 @@ export default function Home() {
           margin: 2rem 0;
         }
 
-        p {
+        p, ul, ol {
           font-weight: 500;
           line-height: 2rem;
           font-size: 1.25rem;
           margin: 2rem 0;
         }
+
+        p + ul, p + ol {
+          margin-top: -2rem;
+        }
+
+        ul.ellipsis { list-style: none }
+        ul.ellipsis > li:before { content: "…"; } 
 
         em { 
           all: unset;

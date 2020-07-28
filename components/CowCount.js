@@ -17,7 +17,7 @@ export default function CowCount(props) {
         const difference = Math.floor(delta * pos);
         const result = base + difference;
 
-        props.onChange?.(result, value)
+        props.onChange?.(result)
 
         return result;
     }, [position])
@@ -25,8 +25,8 @@ export default function CowCount(props) {
     return <div> 
         <input type="range" 
             list="cow-count" 
-            value={position} 
-            onChange={e => setPosition(e.target.value)} {...props} 
+            value={position}
+            onChange={e => setPosition(e.target.value)}
             min={0}
             max={6}
             step={0.01}
