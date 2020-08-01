@@ -4,18 +4,6 @@ import CowCount from './CowCount'
 export default function BenefitCalculator() {
     const [cowCount, updateCowCount] = useState(100);
 
-    const benefit = useMemo(() => {
-        return { 
-            extraCows: Math.floor(cowCount * 0.15),
-            extraMovies: {
-                perMonth: Math.floor(cowCount / 25),
-                perWeek: Math.floor(cowCount / 100),
-                perDay: Math.floor(cowCount / 700),
-            },
-            extraSleep: Math.floor(cowCount * 0.04) * 5
-         };
-    },[cowCount])
-
     return <>
         <label>How many cows do you have?</label>
         <CowCount value={cowCount} onChange={updateCowCount}/>
@@ -24,9 +12,9 @@ export default function BenefitCalculator() {
             With <em>{cowCount} <Plural count={cowCount} singular="cow" plural="cows"/></em> and a Wicow setup, you could…
         </p>
         <ul className="ellipsis">
-            <ExtraCows cows={benefit.extraCows}/>
-            <ExtraMovies movies={benefit.extraMovies}/>
-            <ExtraSleep minutes={benefit.extraSleep} />
+            <ExtraCows cows={cowCount}/>
+            <ExtraMovies cows={cowCount}/>
+            <ExtraSleep cows={cowCount} />
         </ul>
     </>
 }
@@ -48,14 +36,20 @@ function Plural({count, singular, plural, zero}) {
 }
 
 function ExtraCows({cows}) {
+    const extraCows = useMemo(() => Math.floor(cows * 0.15), [cows])
     return <li>
-                keep <em>{cows} more 
-                <Plural count={cows} singular=" cow" plural=" cows"/>
+                keep <em>{extraCows} more 
+                <Plural count={extraCows} singular=" cow" plural=" cows"/>
                 </em> for the same amount of work
             </li>
 }
 
-function ExtraMovies({movies}) {
+function ExtraMovies({cows}) {
+    const movies = useMemo(() => ({
+                perMonth: Math.floor(cows / 25),
+                perWeek: Math.floor(cows / 100),
+                perDay: Math.floor(cows / 700),
+            }), [cows])
     return <li hidden={!movies.perMonth}>
                 have time for 
                 <Movies count={movies}/>
@@ -75,7 +69,8 @@ function Movies({count: {perDay, perWeek, perMonth}}) {
     }
 }
 
-function ExtraSleep({minutes}) {
+function ExtraSleep({cows}) {
+    const minutes = useMemo(() => Math.floor(cows * 0.04) * 5, [cows])
     return <li hidden={minutes < 15}>
                 sleep <em>{minutes} more minutes</em> each day
             </li>
