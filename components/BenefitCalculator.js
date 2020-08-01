@@ -12,30 +12,21 @@ export default function BenefitCalculator() {
                 perWeek: Math.floor(cowCount / 100),
                 perDay: Math.floor(cowCount / 700),
             },
-            extraMinutesPerDay: Math.floor(cowCount * 0.04) * 5
+            extraSleep: Math.floor(cowCount * 0.04) * 5
          };
     },[cowCount])
 
     return <>
         <label>How many cows do you have?</label>
         <CowCount value={cowCount} onChange={updateCowCount}/>
-
+        
         <p>
             With <em>{cowCount} <Plural count={cowCount} singular="cow" plural="cows"/></em> and a Wicow setup, you could…
         </p>
         <ul className="ellipsis">
-            <li>
-                keep <em>{benefit.extraCows} more 
-                <Plural count={benefit.extraCows} singular=" cow" plural=" cows"/>
-                </em> for the same amount of work
-            </li>
-            <li hidden={!benefit.extraMovies.perMonth}>
-                have time for 
-                <Movies count={benefit.extraMovies}/>
-            </li>
-            <li hidden={benefit.extraMinutesPerDay < 15}>
-                sleep <em>{benefit.extraMinutesPerDay} more minutes</em> each day
-            </li>
+            <ExtraCows cows={benefit.extraCows}/>
+            <ExtraMovies movies={benefit.extraMovies}/>
+            <ExtraSleep minutes={benefit.extraSleep} />
         </ul>
     </>
 }
@@ -50,6 +41,27 @@ const movieCounts = [
     "six movies"
 ];
 
+
+
+function Plural({count, singular, plural, zero}) {
+    return (count > 1 && plural) || (!!count ? singular : zero);
+}
+
+function ExtraCows({cows}) {
+    return <li>
+                keep <em>{cows} more 
+                <Plural count={cows} singular=" cow" plural=" cows"/>
+                </em> for the same amount of work
+            </li>
+}
+
+function ExtraMovies({movies}) {
+    return <li hidden={!movies.perMonth}>
+                have time for 
+                <Movies count={movies}/>
+            </li>
+}
+
 function Movies({count: {perDay, perWeek, perMonth}}) {
     const mode = (!!perDay && "day") || (!!perWeek && "week") || (!!perMonth && "month")
     switch (mode) {
@@ -63,6 +75,8 @@ function Movies({count: {perDay, perWeek, perMonth}}) {
     }
 }
 
-function Plural({count, singular, plural, zero}) {
-    return (count > 1 && plural) || (!!count ? singular : zero);
+function ExtraSleep({minutes}) {
+    return <li hidden={minutes < 15}>
+                sleep <em>{minutes} more minutes</em> each day
+            </li>
 }
