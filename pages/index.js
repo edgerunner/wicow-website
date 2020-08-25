@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import BenefitCalculator from '../components/BenefitCalculator';
+import Section from '../components/Section';
 
 export default function Home() {
   return (
@@ -13,10 +14,10 @@ export default function Home() {
       </header>
 
       <main>
-        <section>
-          <h1>Know your cows</h1>
-          <h2>Wicow lets you do that right here</h2>
-          
+        <Section 
+          title="Know your cows"
+          subtitle="Wicow lets you do that right here"
+          >
           <p>
             Wicow is a system for making sure that you
             can always keep tabs on your cows, even while
@@ -34,10 +35,10 @@ export default function Home() {
             then you can rest assured that you will know
             when something happens.
           </p>
-        </section>
-        <section>
-          <h1>Sit back and relax</h1>
-          <h2>Take time for your farm and yourself</h2>
+        </Section>
+        <Section
+          title="Sit back and relax"
+          subtitle="Take time for your farm and yourself">
           <p>
             There is a key feature in Wicow that sets it apart from anything else: We do not expect you to keep checking our app. We will tell you when you need to act on something.
           </p>
@@ -50,7 +51,7 @@ export default function Home() {
           <form>
             <BenefitCalculator/>
           </form>
-        </section>
+        </Section>
       </main>
 
       <footer>
