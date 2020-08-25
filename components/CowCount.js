@@ -32,7 +32,7 @@ export default function CowCount(props) {
             step={0.01}
             />
         <output 
-            for={props.id} 
+            htmlFor={props.id} 
             style={{left: `${position*13.5 + 2}%`}}>
                 {value}
         </output>
