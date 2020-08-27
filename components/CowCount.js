@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 
 const values = [10, 20, 50, 100, 200, 500, 1000]
 
@@ -17,10 +17,10 @@ export default function CowCount(props) {
         const difference = Math.floor(delta * pos);
         const result = base + difference;
 
-        props.onChange?.(result)
-
         return result;
     }, [position])
+
+    useEffect(() => props.onChange?.(value), [value, props.onChange]);
 
     return <div> 
         <input type="range" 
