@@ -1,10 +1,7 @@
 import Head from 'next/head';
-import * as sections from '../sections';
+import {KnowYourCows, SitBackAndRelax} from '../sections';
 
 export default function Home() {
-  const KYC = sections.KnowYourCows.en;
-  const SBaR = sections.SitBackAndRelax.en;
-
   return (
     <>
       <Head>
@@ -18,8 +15,8 @@ export default function Home() {
       </header>
 
       <main>
-        <KYC/>
-        <SBaR/>
+        <KnowYourCows.en/>
+        <SitBackAndRelax.en/>
       </main>
 
       <footer>
