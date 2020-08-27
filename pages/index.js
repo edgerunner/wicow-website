@@ -15,8 +15,7 @@ export default function Home() {
       </header>
 
       <main>
-        <KnowYourCows.en/>
-        <SitBackAndRelax.en/>
+        <Sections locale="en"/>
       </main>
 
       <footer>
@@ -24,4 +23,12 @@ export default function Home() {
       </footer>
     </>
   )
+}
+
+function Sections({locale}) {
+  return [ 
+    KnowYourCows,
+    SitBackAndRelax
+  ].map(section => section[locale])
+   .map((Section, index) => <Section key={index}/>);
 }
