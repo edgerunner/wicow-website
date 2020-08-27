@@ -28,7 +28,8 @@ h1 {
     font-size: 5rem;
     line-height: 4rem;
     margin: 2rem 0;
-    letter-spacing: -0.1ch; 
+    letter-spacing: -0.1ch;
+    hyphens: auto;
 }
 
 h2 {
