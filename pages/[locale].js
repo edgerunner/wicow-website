@@ -1,11 +1,11 @@
 import Head from 'next/head';
 import Link from 'next/link';
+import { useLocale } from '../hooks';
 import {KnowYourCows, SitBackAndRelax} from '../sections';
 
 const locales = [ "en", "de", "tr" ];
 
-export default function Home({ locale = "en" }) {
-
+export default function Home() {
   return (
     <>
       <Head>
@@ -16,11 +16,11 @@ export default function Home({ locale = "en" }) {
 
       <header>
         <img src="/wicow.svg" alt="Wicow" className="logo" />
-        <LocaleNav locale={locale}/>
+        <LocaleNav/>
       </header>
 
       <main>
-        <Sections locale={locale}/>
+        <Sections/>
       </main>
 
       <footer>
@@ -30,7 +30,8 @@ export default function Home({ locale = "en" }) {
   )
 }
 
-function Sections({locale}) {
+function Sections() {
+  const locale = useLocale();
   return [ 
     KnowYourCows,
     SitBackAndRelax
@@ -38,7 +39,8 @@ function Sections({locale}) {
    .map((Section, index) => <Section key={index}/>);
 }
 
-function LocaleNav({locale}) {
+function LocaleNav() {
+  const locale = useLocale();
   return (
     <nav className="locale">
       { locales.map(loc => 
