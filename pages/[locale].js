@@ -16,7 +16,7 @@ export default function Home({ locale = "en" }) {
 
       <header>
         <img src="/wicow.svg" alt="Wicow" className="logo" />
-        <LocaleNav/>
+        <LocaleNav locale={locale}/>
       </header>
 
       <main>
@@ -38,12 +38,12 @@ function Sections({locale}) {
    .map((Section, index) => <Section key={index}/>);
 }
 
-function LocaleNav() {
+function LocaleNav({locale}) {
   return (
     <nav className="locale">
       { locales.map(loc => 
         <Link href="/[locale]" as={`/${loc}`} key={loc}>
-          <a>{loc}</a>
+          <a className={{[locale]:"current"}[loc]}>{loc}</a>
         </Link>
       ) }
     </nav>
