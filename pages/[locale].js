@@ -1,5 +1,8 @@
 import Head from 'next/head';
+import Link from 'next/link';
 import {KnowYourCows, SitBackAndRelax} from '../sections';
+
+const locales = [ "en", "de", "tr" ];
 
 export default function Home({ locale = "en" }) {
 
@@ -13,6 +16,7 @@ export default function Home({ locale = "en" }) {
 
       <header>
         <img src="/wicow.svg" alt="Wicow" className="logo" />
+        <LocaleNav/>
       </header>
 
       <main>
@@ -34,6 +38,18 @@ function Sections({locale}) {
    .map((Section, index) => <Section key={index}/>);
 }
 
+function LocaleNav() {
+  return (
+    <nav className="locale">
+      { locales.map(loc => 
+        <Link href="/[locale]" as={`/${loc}`} key={loc}>
+          <a>{loc}</a>
+        </Link>
+      ) }
+    </nav>
+  );
+}
+
 export async function getStaticProps({params: {locale}}) {
   return {
     props: { locale }
@@ -42,7 +58,7 @@ export async function getStaticProps({params: {locale}}) {
 
 export async function getStaticPaths() {
   return {
-    paths: [ "en", "de", "tr" ].map(locale => ({ params: { locale } })), 
+    paths: locales.map(locale => ({ params: { locale } })), 
     fallback: false
   };
 }
