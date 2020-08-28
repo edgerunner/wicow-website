@@ -62,3 +62,35 @@ em {
 section + section {
     margin-top: 8rem;
 }
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;   
+}
+
+nav.locale {
+    display: flex;
+    border: solid .2rem var(--darkish);
+    padding: .1rem;
+    gap: .1rem;
+    border-radius: .4rem;
+    height: 3rem;
+    align-items: stretch;
+}
+
+nav.locale a {
+    display: block;
+    color: var(--darkish);
+    width: 3rem;
+    text-decoration: none;
+    text-transform: uppercase;
+    text-align: center;
+    line-height: 2.3rem;
+    border-radius: .2rem
+}
+
+nav.locale a.current {
+    background-color: var(--wicow-blue);
+    color: var(--dark);
+}
