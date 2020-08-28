@@ -1,8 +1,8 @@
 const withMdxEnhanced = require('next-mdx-enhanced');
 
 module.exports = withMdxEnhanced({
-  layoutPath: 'components',
-  defaultLayout: 'Section',
+  layoutPath: 'layouts',
+  defaultLayout: true,
   fileExtensions: ['mdx'],
   remarkPlugins: [],
   rehypePlugins: [],
