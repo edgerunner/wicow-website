@@ -94,3 +94,113 @@ nav.locale a.current {
     background-color: var(--wicow-blue);
     color: var(--dark);
 }
+
+@media only screen and (min-width: 24rem) {
+    body {
+        padding: clamp(1rem, 4vw, 3rem);
+    }
+
+    section h1 {
+        position: relative;
+        padding-right: 20vw;
+    }
+
+    section h1:after {
+        position: absolute;
+        right: 0; bottom: 0;
+    }
+
+    #know-your-cows h1:after {
+        content: url("/pictograms/sitting-cow-and-calf.svg");
+    }
+
+    #sit-back-and-relax h1:after {
+        content: url("/pictograms/felix.svg");
+    }
+
+}
+
+@media only screen and (min-width: 48rem) {
+    section {
+        display: grid;
+        grid-template-columns: 2fr 3fr;
+        grid-gap: 1rem;
+        margin-top: 3rem;
+        grid-template-rows: 4rem;
+
+    }
+    section > * {
+        grid-column: 2;
+        margin: 0;
+    }
+    section > h1 {
+        grid-column: 1;
+        grid-row: 1 / span 2;
+        padding-right: 0;
+        align-self: start;
+    }
+    section > h1:after {
+        top: 100%;
+        left: 0;
+        margin-top: -1rem;
+    }
+}
+
+@media only screen and (min-width: 72rem) {
+    section {
+        display:block;
+        position: relative;
+        padding-left: calc(40vw - 6rem);
+        columns: 2;
+        column-gap: 2rem;
+    }
+
+    section > * {
+        margin: 2rem 0;
+    }
+
+    section > h1 {
+        font-size: 5rem;
+        position: static;
+    }
+
+    section > h1,
+    section > h2 {
+        column-span: all;
+    }
+
+    section > h1:after {
+        left: 0; top: -2rem;
+        transform-origin: top left;
+        transform: scale(1.5);
+    }
+
+    section > h2 + p {
+        margin-top: 0;
+    }
+}
+
+@media only screen and (min-width: 96rem) {
+    section {
+        columns: 3;
+        padding-left: calc(25vw - 6rem);
+        column-gap: 3rem;
+    }
+
+    section > * {
+        margin: 3rem 0;
+    }
+
+    section > h1 {
+        font-size: 6rem;
+    }
+
+    section > h2 {
+        font-size: 3rem;
+    }
+
+    section > p {
+        font-size: 1.5rem;
+        line-height: 3rem;
+    }
+}

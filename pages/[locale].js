@@ -35,8 +35,12 @@ function Sections() {
   return [ 
     KnowYourCows,
     SitBackAndRelax
-  ].map(section => section[locale])
-   .map((Section, index) => <Section key={index}/>);
+  ].map(
+    (section, index) => {
+      const Section = section[locale];
+      return <Section key={index} id={section.id}/>
+    }
+  );  
 }
 
 function LocaleNav() {

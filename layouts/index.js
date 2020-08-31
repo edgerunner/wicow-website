@@ -1,3 +1,4 @@
 export default function Section() {
-    return ({children: content}) => <section>{content}</section>
+    return ({children: content, id}) => 
+            <section id={id}>{content}</section>;  
 }
