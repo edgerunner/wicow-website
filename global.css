@@ -119,3 +119,29 @@ nav.locale a.current {
     }
 
 }
+
+@media only screen and (min-width: 48rem) {
+    section {
+        display: grid;
+        grid-template-columns: 2fr 3fr;
+        grid-gap: 1rem;
+        margin-top: 3rem;
+        grid-template-rows: 4rem;
+
+    }
+    section > * {
+        grid-column: 2;
+        margin: 0;
+    }
+    section > h1 {
+        grid-column: 1;
+        grid-row: 1 / span 2;
+        padding-right: 0;
+        align-self: start;
+    }
+    section > h1:after {
+        top: 100%;
+        left: 0;
+        margin-top: -1rem;
+    }
+}
