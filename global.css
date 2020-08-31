@@ -94,3 +94,24 @@ nav.locale a.current {
     background-color: var(--wicow-blue);
     color: var(--dark);
 }
+
+@media only screen and (min-width: 24rem) {
+    section h1 {
+        position: relative;
+        padding-right: 20vw;
+    }
+
+    section h1:after {
+        position: absolute;
+        right: 0; bottom: 0;
+    }
+
+    #know-your-cows h1:after {
+        content: url("/pictograms/sitting-cow-and-calf.svg");
+    }
+
+    #sit-back-and-relax h1:after {
+        content: url("/pictograms/felix.svg");
+    }
+
+}
