@@ -175,6 +175,11 @@ nav.locale a.current {
         transform: scale(1.5);
     }
 
+    section > p {
+        widows: 3;
+        orphans: 3;
+    }
+
     section > h2 + p {
         margin-top: 0;
     }
