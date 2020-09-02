@@ -4,7 +4,7 @@ import CowCount from './CowCount'
 export default function BenefitCalculator() {
     const [cowCount, updateCowCount] = useState(100);
 
-    return <>
+    return <aside>
         <label>How many cows do you have?</label>
         <CowCount value={cowCount} onChange={updateCowCount}/>
         
@@ -17,9 +17,10 @@ export default function BenefitCalculator() {
             <ExtraSleep cows={cowCount} />
         </ul>
         <style jsx>{`
+            aside { column-break-inside: avoid }
             ul { min-height: 12rem; }
         `}</style>
-    </>
+    </aside>
 }
 
 const movieCounts = [
