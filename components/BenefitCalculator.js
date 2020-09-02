@@ -16,6 +16,9 @@ export default function BenefitCalculator() {
             <ExtraMovies cows={cowCount}/>
             <ExtraSleep cows={cowCount} />
         </ul>
+        <style jsx>{`
+            ul { min-height: 12rem; }
+        `}</style>
     </>
 }
 
