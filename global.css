@@ -147,10 +147,18 @@ nav.locale a.current {
 }
 
 @media only screen and (min-width: 72rem) {
+    section, header {
+        padding-left: calc(40vw - 6rem);
+    }
+
+    header > img {
+        transform-origin: left;
+        transform: scale(1.5);
+    }
+
     section {
         display:block;
         position: relative;
-        padding-left: calc(40vw - 6rem);
         columns: 2;
         column-gap: 2rem;
     }
@@ -186,9 +194,12 @@ nav.locale a.current {
 }
 
 @media only screen and (min-width: 96rem) {
+    section, header {
+        padding-left: calc(25vw - 6rem);
+    }
+
     section {
         columns: 3;
-        padding-left: calc(25vw - 6rem);
         column-gap: 3rem;
     }
 
