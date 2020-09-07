@@ -112,14 +112,18 @@ nav.locale a.current {
     section h1:after {
         position: absolute;
         right: 0; bottom: 0;
+        top: 0; left: 0;
+        background-repeat: no-repeat;
+        background-position: bottom right;
+        content: "";
     }
 
     #know-your-cows h1:after {
-        content: url("/pictograms/sitting-cow-and-calf.svg");
+        background-image: url("/pictograms/sitting-cow-and-calf.svg");
     }
 
     #sit-back-and-relax h1:after {
-        content: url("/pictograms/felix.svg");
+        background-image: url("/pictograms/felix.svg");
     }
 
 }
@@ -146,7 +150,9 @@ nav.locale a.current {
     section > h1:after {
         top: 100%;
         left: 0;
+        height: 100%;
         margin-top: -1rem;
+        background-position: top left;
     }
 }
 
@@ -182,9 +188,13 @@ nav.locale a.current {
     }
 
     section > h1:after {
-        left: 0; top: -2rem;
-        transform-origin: top left;
-        transform: scale(1.5);
+        left: unset;
+        right: calc(60vw + 3rem);
+        top: -2rem;
+        width: 20%;
+        height: 18rem;
+        background-size: contain;
+        background-position: top right;
     }
 
     section > p {
@@ -213,6 +223,11 @@ nav.locale a.current {
 
     section > h1 {
         font-size: 6rem;
+    }
+
+    section > h1:after {
+        width: 15%;
+        right: calc(75vw + 3rem);
     }
 
     section > h2 {
