@@ -13,7 +13,11 @@ body {
     color: var(--light);
 }
 
-body { padding: 1rem; }
+body { 
+    padding: 1rem;
+    max-width: 168rem;
+    margin: 0 auto;
+}
 
 a {
     color: var(--wicow-blue);
