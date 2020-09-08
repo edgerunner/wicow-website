@@ -47,27 +47,24 @@ function ExtraCows({cows}) {
 }
 
 function ExtraMovies({cows}) {
-    const movies = useMemo(() => ({
+    const keys = useTranslation(translations, "ExtraMovies");
+
+    const count = useMemo(() => ({
                 month: Math.floor(cows / 25),
                 week: Math.floor(cows / 100),
                 day: Math.floor(cows / 700),
-            }), [cows])
-    return <li hidden={!movies.month}>
-                <Movies count={movies}/>
-            </li>
-}
+            }), [cows]);
 
-function Movies({count}) {
-    const {day, week, month} = count;
+    const timeframe = useMemo(() => 
+        (!!count.day && "day") || (!!count.week && "week") || "month", 
+        [count]);
 
-    const keys = useTranslation(translations, "ExtraMovies");
-
-    const timeframe = (!!day && "day") || (!!week && "week") || "month"
-    
-    return <Translate keys={keys} mapping={{
-        timeframe, 
-        count: count[timeframe]
-        }}/>;
+    return  <li hidden={!count.month}>
+                <Translate keys={keys} mapping={{
+                    timeframe, 
+                    count: count[timeframe]
+                    }}/>
+            </li>;
 }
 
 function ExtraSleep({cows}) {
