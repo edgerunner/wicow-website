@@ -27,17 +27,6 @@ export default function BenefitCalculator() {
     </aside>
 }
 
-const movieCounts = [
-    "",
-    "a movie",
-    "two movies",
-    "three movies",
-    "four movies",
-    "five movies",
-    "six movies"
-];
-
-
 
 function Plural({count, singular, plural, zero}) {
     return (count > 1 && plural) || (!!count ? singular : zero);
@@ -65,14 +54,16 @@ function ExtraMovies({cows}) {
 }
 
 function Movies({count: {perDay, perWeek, perMonth}}) {
+    const keys = translations[useLocale()];
+
     const mode = (!!perDay && "day") || (!!perWeek && "week") || (!!perMonth && "month")
     switch (mode) {
         case "day": 
-            return <> <em>{movieCounts[perDay]}</em> every day</>;
+            return <> <em>{keys.movieCounts[perDay-1]}</em> every day</>;
         case "week": 
-            return <> <em>{movieCounts[perWeek]}</em> every week</>;
+            return <> <em>{keys.movieCounts[perWeek-1]}</em> every week</>;
         case "month": 
-            return <> <em>{movieCounts[perMonth]}</em> every month</>;
+            return <> <em>{keys.movieCounts[perMonth-1]}</em> every month</>;
         default: return null;
     }
 }

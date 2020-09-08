@@ -1,8 +1,29 @@
 en:
     label: How many dairy cows do you have?
+    movieCounts:
+        - a movie
+        - two movies
+        - three movies
+        - four movies
+        - five movies
+        - six movies
 
 tr:
     label: Kaç sağmal ineğin var?
+    movieCounts:
+        - bir film
+        - iki film
+        - üç film
+        - dört film
+        - beş film
+        - altı film
 
 de:
     label: Wie viele Milchkühe haben Sie?
+    movieCounts:
+        - ein Film
+        - zwei Filme
+        - drei Filme
+        - vier Filme
+        - fünf Filme
+        - sechs Filme
