@@ -34,7 +34,7 @@ function Plural({count, singular, plural, zero}) {
 
 function ExtraCows({cows}) {
     const extraCows = useMemo(() => Math.floor(cows * 0.15), [cows])
-    const keys = useTranslation(translations, "ExtraCows");
+    const { ExtraCows: keys } = useTranslation(translations);
     return <li>
         <Translate keys={keys} 
             mapping={
@@ -47,7 +47,7 @@ function ExtraCows({cows}) {
 }
 
 function ExtraMovies({cows}) {
-    const keys = useTranslation(translations, "ExtraMovies");
+    const { ExtraMovies: keys } = useTranslation(translations);
 
     const count = useMemo(() => ({
                 month: Math.floor(cows / 25),
@@ -69,7 +69,7 @@ function ExtraMovies({cows}) {
 
 function ExtraSleep({cows}) {
     const minutes = useMemo(() => Math.floor(cows * 0.04) * 5, [cows])
-    const keys = useTranslation(translations, "ExtraSleep");
+    const { ExtraSleep: keys } = useTranslation(translations);
 
     return <li hidden={minutes < 15}>
                 <Translate keys={keys} mapping={{minutes}}/>

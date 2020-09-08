@@ -1,10 +1,8 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useLocale } from '.';
 
-export function useTranslation(translations, root) {
-    return root
-        ? translations[useLocale()][root]
-        : translations[useLocale()];
+export function useTranslation(translations) {
+    return useMemo(() => translations[useLocale()], [translations]);
 }
 
 export function Translate({ keys, mapping }) {
