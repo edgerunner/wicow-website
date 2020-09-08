@@ -1,29 +1,127 @@
 en:
     label: How many dairy cows do you have?
-    movieCounts:
-        - a movie
-        - two movies
-        - three movies
-        - four movies
-        - five movies
-        - six movies
+    intro:
+        - With
+        - em:
+            - var: cowCount
+            - cows
+        - and a wiCow setup, you could…
+    ExtraCows:
+        - keep
+        - em:
+            - var: extraCows
+            - more
+            - Plural:
+                singular: cow
+                plural: cows
+        - for the same amount of work
+    ExtraMovies:
+        - watch
+        - em:
+            - map:
+                count:
+                    - ~
+                    - a movie
+                    - two movies
+                    - three movies
+                    - four movies
+                    - five movies
+                    - six movies
+        - map: 
+            timeframe:
+                day: every day
+                week: every week
+                month: every month
+    ExtraSleep:
+        - sleep
+        - em:
+            - var: minutes
+            - more minutes
+        - every day
 
 tr:
     label: Kaç sağmal ineğin var?
-    movieCounts:
-        - bir film
-        - iki film
-        - üç film
-        - dört film
-        - beş film
-        - altı film
+    intro:
+        - em:
+            - var: cowCount
+            - inek
+        - ve bir wiCow sistemiyle…
+    ExtraCows:
+        - aynı çabayla
+        - em:
+            - var: extraCows
+            - Plural:
+                singular: inek
+                plural: inek
+        - daha besleyebilirsin
+
+    ExtraMovies:
+        - map: 
+            timeframe:
+                day: günde
+                week: haftada
+                month: ayda
+        - em:
+            - map:
+                count:
+                    - ~
+                    - bir film
+                    - iki film
+                    - üç film
+                    - dört film
+                    - beş film
+                    - altı film
+        - izleyebilirsin
+        
+            
+    ExtraSleep:
+        - her gün
+        - em:
+            - var: minutes
+            - dakika daha
+        - uyuyabilirsin
 
 de:
     label: Wie viele Milchkühe haben Sie?
-    movieCounts:
-        - ein Film
-        - zwei Filme
-        - drei Filme
-        - vier Filme
-        - fünf Filme
-        - sechs Filme
+    intro:
+        - Mit 
+        - em:
+            - var: cowCount
+            - Kühen
+        - und einem wiCow-Setup können Sie…
+
+    ExtraCows:
+        - em:
+            - var: extraCows
+            - zusätzliche
+            - Plural:
+                singular: Kuh
+                plural: Kühe
+        - für den gleichen Arbeitsaufwand halten
+    
+    ExtraMovies:
+        - map: 
+            timeframe:
+                day: jeden Tag
+                week: jede Woche
+                month: jeden Monat
+        - em:
+            - map:
+                count:
+                    - ~
+                    - ein Film
+                    - zwei Filme
+                    - drei Filme
+                    - vier Filme
+                    - fünf Filme
+                    - sechs Filme
+        - ansehlen
+        
+
+    ExtraSleep:
+        - jeden Tag
+        - em:
+            - weitere
+            - var: minutes
+            - Minuten
+        - schlafen

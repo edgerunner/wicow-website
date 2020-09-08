@@ -6,14 +6,14 @@ import { useLocale } from '../hooks';
 export default function BenefitCalculator() {
     const [cowCount, updateCowCount] = useState(100);
 
-    const keys = translations[useLocale()];
+    const keys = useTranslation();
 
     return <aside>
         <label>{keys.label}</label>
         <CowCount value={cowCount} onChange={updateCowCount}/>
         
         <p>
-            With <em>{cowCount} <Plural count={cowCount} singular="cow" plural="cows"/></em> and a Wicow setup, you could…
+            <Translate keys={keys.intro} mapping={{cowCount}}/>
         </p>
         <ul className="ellipsis">
             <ExtraCows cows={cowCount}/>
@@ -34,43 +34,84 @@ function Plural({count, singular, plural, zero}) {
 
 function ExtraCows({cows}) {
     const extraCows = useMemo(() => Math.floor(cows * 0.15), [cows])
+    const keys = useTranslation("ExtraCows");
     return <li>
-                keep <em>{extraCows} more 
-                <Plural count={extraCows} singular=" cow" plural=" cows"/>
-                </em> for the same amount of work
-            </li>
+        <Translate keys={keys} 
+            mapping={
+                {
+                    extraCows,
+                    Plural: props => <Plural count={extraCows} {...props}/>
+                }
+            }/>
+        </li>
 }
 
 function ExtraMovies({cows}) {
     const movies = useMemo(() => ({
-                perMonth: Math.floor(cows / 25),
-                perWeek: Math.floor(cows / 100),
-                perDay: Math.floor(cows / 700),
+                month: Math.floor(cows / 25),
+                week: Math.floor(cows / 100),
+                day: Math.floor(cows / 700),
             }), [cows])
-    return <li hidden={!movies.perMonth}>
-                have time for 
+    return <li hidden={!movies.month}>
                 <Movies count={movies}/>
             </li>
 }
 
-function Movies({count: {perDay, perWeek, perMonth}}) {
-    const keys = translations[useLocale()];
+function Movies({count}) {
+    const {day, week, month} = count;
 
-    const mode = (!!perDay && "day") || (!!perWeek && "week") || (!!perMonth && "month")
-    switch (mode) {
-        case "day": 
-            return <> <em>{keys.movieCounts[perDay-1]}</em> every day</>;
-        case "week": 
-            return <> <em>{keys.movieCounts[perWeek-1]}</em> every week</>;
-        case "month": 
-            return <> <em>{keys.movieCounts[perMonth-1]}</em> every month</>;
-        default: return null;
-    }
+    const keys = useTranslation("ExtraMovies");
+
+    const timeframe = (!!day && "day") || (!!week && "week") || "month"
+    
+    return <Translate keys={keys} mapping={{
+        timeframe, 
+        count: count[timeframe]
+        }}/>;
 }
 
 function ExtraSleep({cows}) {
     const minutes = useMemo(() => Math.floor(cows * 0.04) * 5, [cows])
+    const keys = useTranslation("ExtraSleep");
+
     return <li hidden={minutes < 15}>
-                sleep <em>{minutes} more minutes</em> each day
+                <Translate keys={keys} mapping={{minutes}}/>
             </li>
+}
+
+function useTranslation(root) {
+    return root 
+        ? translations[useLocale()][root]
+        : translations[useLocale()];
+}
+
+function Translate({keys, mapping}) {
+    if (!keys) { return null; }
+    if (keys instanceof Array) {
+        return keys.map((key, index) => 
+            <React.Fragment key={index}><Translate keys={key} mapping={mapping}/> </React.Fragment>
+            );
+    }
+
+    if (typeof keys === "string") { return <>{keys}</>; }
+
+    if (keys.hasOwnProperty('var')) { return <>{mapping[keys.var]}</>; }
+
+    if (keys.hasOwnProperty('map')) { 
+        const [key, choices] = Object.entries(keys.map)[0];
+        const chosen = mapping[key];
+        return <Translate keys={choices[chosen]} mapping={mapping}/>
+    }
+
+    const [key, value] = Object.entries(keys)[0];
+    if (key.match(/^[A-Z]/)) {
+        const Component = mapping[key];
+        return <Component {...value}/>;
+    }
+
+    if (key.match(/^[a-z]/)) {
+        return React.createElement(key, {}, <Translate keys={value} mapping={mapping}/>)
+    }
+
+    return null;
 }
