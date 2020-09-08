@@ -1,19 +1,19 @@
 import React, {useState, useMemo} from 'react';
 import CowCount from './CowCount';
+import {useTranslation, Translate} from '../hooks';
 import translations from './BenefitCalculator.yaml';
-import { useLocale } from '../hooks';
 
 export default function BenefitCalculator() {
     const [cowCount, updateCowCount] = useState(100);
 
-    const keys = useTranslation();
+    const { label, intro } = useTranslation(translations);
 
     return <aside>
-        <label>{keys.label}</label>
+        <label>{label}</label>
         <CowCount value={cowCount} onChange={updateCowCount}/>
         
         <p>
-            <Translate keys={keys.intro} mapping={{cowCount}}/>
+            <Translate keys={intro} mapping={{cowCount}}/>
         </p>
         <ul className="ellipsis">
             <ExtraCows cows={cowCount}/>
@@ -34,7 +34,7 @@ function Plural({count, singular, plural, zero}) {
 
 function ExtraCows({cows}) {
     const extraCows = useMemo(() => Math.floor(cows * 0.15), [cows])
-    const keys = useTranslation("ExtraCows");
+    const keys = useTranslation(translations, "ExtraCows");
     return <li>
         <Translate keys={keys} 
             mapping={
@@ -60,7 +60,7 @@ function ExtraMovies({cows}) {
 function Movies({count}) {
     const {day, week, month} = count;
 
-    const keys = useTranslation("ExtraMovies");
+    const keys = useTranslation(translations, "ExtraMovies");
 
     const timeframe = (!!day && "day") || (!!week && "week") || "month"
     
@@ -72,46 +72,11 @@ function Movies({count}) {
 
 function ExtraSleep({cows}) {
     const minutes = useMemo(() => Math.floor(cows * 0.04) * 5, [cows])
-    const keys = useTranslation("ExtraSleep");
+    const keys = useTranslation(translations, "ExtraSleep");
 
     return <li hidden={minutes < 15}>
                 <Translate keys={keys} mapping={{minutes}}/>
             </li>
 }
 
-function useTranslation(root) {
-    return root 
-        ? translations[useLocale()][root]
-        : translations[useLocale()];
-}
 
-function Translate({keys, mapping}) {
-    if (!keys) { return null; }
-    if (keys instanceof Array) {
-        return keys.map((key, index) => 
-            <React.Fragment key={index}><Translate keys={key} mapping={mapping}/> </React.Fragment>
-            );
-    }
-
-    if (typeof keys === "string") { return <>{keys}</>; }
-
-    if (keys.hasOwnProperty('var')) { return <>{mapping[keys.var]}</>; }
-
-    if (keys.hasOwnProperty('map')) { 
-        const [key, choices] = Object.entries(keys.map)[0];
-        const chosen = mapping[key];
-        return <Translate keys={choices[chosen]} mapping={mapping}/>
-    }
-
-    const [key, value] = Object.entries(keys)[0];
-    if (key.match(/^[A-Z]/)) {
-        const Component = mapping[key];
-        return <Component {...value}/>;
-    }
-
-    if (key.match(/^[a-z]/)) {
-        return React.createElement(key, {}, <Translate keys={value} mapping={mapping}/>)
-    }
-
-    return null;
-}
