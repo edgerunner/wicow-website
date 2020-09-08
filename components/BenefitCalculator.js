@@ -1,11 +1,15 @@
 import React, {useState, useMemo} from 'react';
-import CowCount from './CowCount'
+import CowCount from './CowCount';
+import translations from './BenefitCalculator.yaml';
+import { useLocale } from '../hooks';
 
 export default function BenefitCalculator() {
     const [cowCount, updateCowCount] = useState(100);
 
+    const keys = translations[useLocale()];
+
     return <aside>
-        <label>How many cows do you have?</label>
+        <label>{keys.label}</label>
         <CowCount value={cowCount} onChange={updateCowCount}/>
         
         <p>
