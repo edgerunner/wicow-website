@@ -12,6 +12,7 @@ en:
             - var: extraCows
             - more
             - Plural:
+                count: extraCows
                 singular: cow
                 plural: cows
         - for the same amount of work
@@ -20,12 +21,15 @@ en:
         - em:
             - map:
                 count:
-                    1: a movie
-                    2: two movies
-                    3: three movies
-                    4: four movies
-                    5: five movies
-                    6: six movies
+                    1: a
+                    2: two
+                    3: three
+                    4: four
+                    5: five
+                    6: six
+            - Plural:
+                singular: movie
+                plural: movies
         - map: 
             timeframe:
                 day: every day
@@ -50,6 +54,7 @@ tr:
         - em:
             - var: extraCows
             - Plural:
+                count: extraCows
                 singular: inek
                 plural: inek
         - daha besleyebilirsin
@@ -94,6 +99,7 @@ de:
             - var: extraCows
             - zusätzliche
             - Plural:
+                count: extraCows
                 singular: Kuh
                 plural: Kühe
         - für den gleichen Arbeitsaufwand halten
@@ -107,12 +113,15 @@ de:
         - em:
             - map:
                 count:
-                    1: ein Film
-                    2: zwei Filme
-                    3: drei Filme
-                    4: vier Filme
-                    5: fünf Filme
-                    6: sechs Filme
+                    1: ein
+                    2: zwei
+                    3: drei
+                    4: vier
+                    5: fünf
+                    6: sechs
+            - Plural:
+                singular: Film
+                plural: Filme
         - ansehlen
         
 

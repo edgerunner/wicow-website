@@ -28,22 +28,12 @@ export default function BenefitCalculator() {
 }
 
 
-function Plural({count, singular, plural, zero}) {
-    return (count > 1 && plural) || (!!count ? singular : zero);
-}
+
 
 function ExtraCows({cows}) {
     const extraCows = useMemo(() => Math.floor(cows * 0.15), [cows])
     const { ExtraCows: keys } = useTranslation(translations);
-    return <li>
-        <Translate keys={keys} 
-            mapping={
-                {
-                    extraCows,
-                    Plural: props => <Plural count={extraCows} {...props}/>
-                }
-            }/>
-        </li>
+    return <li><Translate keys={keys} mapping={{ extraCows }}/></li>;
 }
 
 function ExtraMovies({cows}) {

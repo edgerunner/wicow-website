@@ -24,6 +24,12 @@ export function Translate({ keys, mapping }) {
     }
 
     const [key, value] = Object.entries(keys)[0];
+
+    if (key === "Plural") { 
+        const count = value?.count ? mapping[value.count] : (mapping.count || 0);
+        return <Plural {...{...value, count}} />;
+    }
+
     if (key.match(/^[A-Z]/)) {
         const Component = mapping[key];
         return <Component {...value} />;
@@ -34,4 +40,8 @@ export function Translate({ keys, mapping }) {
     }
 
     return null;
+}
+
+function Plural({count, singular, plural, zero}) {
+    return (count > 1 && plural) || (!!count ? singular : zero) || null;
 }
