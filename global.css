@@ -101,6 +101,28 @@ nav.locale a.current {
     color: var(--dark);
 }
 
+#simple ol {
+    list-style: none;
+    counter-reset: count;
+}
+
+#simple ol li {
+    margin-top: 2rem;
+    counter-increment: count;
+    position: relative;
+    z-index: 0;
+}
+
+#simple ol li::before {
+    color: var(--darkish);
+    font-size: 8rem;
+    font-weight: 900;
+    content: counter(count);
+    position: absolute;
+    top: 2rem;
+    z-index: -1;
+}
+
 @media only screen and (min-width: 24rem) {
     body {
         padding: clamp(1rem, 4vw, 3rem);
