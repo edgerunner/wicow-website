@@ -2,7 +2,8 @@ import React, { useMemo } from 'react';
 import { useLocale } from '.';
 
 export function useTranslation(translations) {
-    return useMemo(() => translations[useLocale()], [translations]);
+    const locale = useLocale();
+    return useMemo(() => translations[locale], [translations]);
 }
 
 export function Translate({ keys, mapping }) {
