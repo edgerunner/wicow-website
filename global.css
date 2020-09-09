@@ -49,6 +49,12 @@ p, ul, ol {
     font-size: 1.25rem;
     margin: 2rem 0;
     padding-left: unset;
+    list-style-position: inside;
+}
+
+::marker {
+    color: var(--darkish);
+    font-weight: 900;
 }
 
 ul.ellipsis { list-style: none }
