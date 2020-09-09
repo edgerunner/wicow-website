@@ -8,6 +8,7 @@ export function useTranslation(translations) {
 
 export function Translate({ keys, mapping }) {
     if (!keys) { return null; }
+    
     if (keys instanceof Array) {
         return keys.map((key, index) => <React.Fragment key={index}><Translate keys={key} mapping={mapping} /> </React.Fragment>
         );
@@ -15,15 +16,15 @@ export function Translate({ keys, mapping }) {
 
     if (typeof keys === "string") { return <>{keys}</>; }
 
-    if (keys.hasOwnProperty('var')) { return <>{mapping[keys.var]}</>; }
+    const [key, value] = Object.entries(keys)[0];
 
-    if (keys.hasOwnProperty('map')) {
-        const [key, choices] = Object.entries(keys.map)[0];
-        const chosen = mapping[key];
+    if (key === "var") { return <>{mapping[value]}</>; }
+
+    if (key === "map") {
+        const [mapkey, choices] = Object.entries(value)[0];
+        const chosen = mapping[mapkey];
         return <Translate keys={choices[chosen]} mapping={mapping} />;
     }
-
-    const [key, value] = Object.entries(keys)[0];
 
     if (key === "Plural") { 
         const count = value?.count ? mapping[value.count] : (mapping.count || 0);
