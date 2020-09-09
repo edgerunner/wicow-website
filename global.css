@@ -152,7 +152,26 @@ nav.locale a.current {
     }
 
     #simple ol li { padding-left: 5rem; }
+    
+    #simple ol li:after {
+        content: " ";
+        width: 4rem;
+        height: 100%;
+        position: absolute;
+        left: 0; bottom: 0;
+        background-repeat: no-repeat;
+        background-position: bottom;
+    }
 
+    #simple ol li:nth-child(1):after {
+        background-image: url("/pictograms/tsens.svg")
+    }
+    #simple ol li:nth-child(2):after {
+        background-image: url("/pictograms/cloud.svg")
+    }
+    #simple ol li:nth-child(3):after {
+        background-image: url("/pictograms/mobile-notifications.svg")
+    }
 }
 
 @media only screen and (min-width: 48rem) {
