@@ -1,15 +1,19 @@
 import React, {useState, useMemo} from 'react';
-import CowCount from './CowCount'
+import CowCount from './CowCount';
+import {useTranslation, Translate} from '../hooks';
+import translations from './BenefitCalculator.yaml';
 
 export default function BenefitCalculator() {
     const [cowCount, updateCowCount] = useState(100);
 
+    const { label, intro } = useTranslation(translations);
+
     return <aside>
-        <label>How many cows do you have?</label>
+        <label>{label}</label>
         <CowCount value={cowCount} onChange={updateCowCount}/>
         
         <p>
-            With <em>{cowCount} <Plural count={cowCount} singular="cow" plural="cows"/></em> and a Wicow setup, you could…
+            <Translate keys={intro} mapping={{cowCount}}/>
         </p>
         <ul className="ellipsis">
             <ExtraCows cows={cowCount}/>
@@ -23,59 +27,43 @@ export default function BenefitCalculator() {
     </aside>
 }
 
-const movieCounts = [
-    "",
-    "a movie",
-    "two movies",
-    "three movies",
-    "four movies",
-    "five movies",
-    "six movies"
-];
 
 
-
-function Plural({count, singular, plural, zero}) {
-    return (count > 1 && plural) || (!!count ? singular : zero);
-}
 
 function ExtraCows({cows}) {
     const extraCows = useMemo(() => Math.floor(cows * 0.15), [cows])
-    return <li>
-                keep <em>{extraCows} more 
-                <Plural count={extraCows} singular=" cow" plural=" cows"/>
-                </em> for the same amount of work
-            </li>
+    const { ExtraCows: keys } = useTranslation(translations);
+    return <li><Translate keys={keys} mapping={{ extraCows }}/></li>;
 }
 
 function ExtraMovies({cows}) {
-    const movies = useMemo(() => ({
-                perMonth: Math.floor(cows / 25),
-                perWeek: Math.floor(cows / 100),
-                perDay: Math.floor(cows / 700),
-            }), [cows])
-    return <li hidden={!movies.perMonth}>
-                have time for 
-                <Movies count={movies}/>
-            </li>
-}
+    const { ExtraMovies: keys } = useTranslation(translations);
 
-function Movies({count: {perDay, perWeek, perMonth}}) {
-    const mode = (!!perDay && "day") || (!!perWeek && "week") || (!!perMonth && "month")
-    switch (mode) {
-        case "day": 
-            return <> <em>{movieCounts[perDay]}</em> every day</>;
-        case "week": 
-            return <> <em>{movieCounts[perWeek]}</em> every week</>;
-        case "month": 
-            return <> <em>{movieCounts[perMonth]}</em> every month</>;
-        default: return null;
-    }
+    const count = useMemo(() => ({
+                month: Math.floor(cows / 25),
+                week: Math.floor(cows / 100),
+                day: Math.floor(cows / 700),
+            }), [cows]);
+
+    const timeframe = useMemo(() => 
+        (!!count.day && "day") || (!!count.week && "week") || "month", 
+        [count]);
+
+    return  <li hidden={!count.month}>
+                <Translate keys={keys} mapping={{
+                    timeframe, 
+                    count: count[timeframe]
+                    }}/>
+            </li>;
 }
 
 function ExtraSleep({cows}) {
     const minutes = useMemo(() => Math.floor(cows * 0.04) * 5, [cows])
+    const { ExtraSleep: keys } = useTranslation(translations);
+
     return <li hidden={minutes < 15}>
-                sleep <em>{minutes} more minutes</em> each day
+                <Translate keys={keys} mapping={{minutes}}/>
             </li>
 }
+
+
