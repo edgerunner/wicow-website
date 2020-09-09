@@ -26,7 +26,7 @@ export function Translate({ keys, mapping }) {
         return <Translate keys={choices[chosen]} mapping={mapping} />;
     }
 
-    if (key === "Plural") { 
+    if (key === "pluralize") { 
         const count = value?.count ? mapping[value.count] : (mapping.count || 0);
         return <Plural {...{...value, count}} />;
     }
