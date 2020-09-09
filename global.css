@@ -120,6 +120,7 @@ nav.locale a.current {
     content: counter(count);
     position: absolute;
     top: 2rem;
+    left: 0; 
     z-index: -1;
 }
 
@@ -149,6 +150,8 @@ nav.locale a.current {
     #sit-back-and-relax h1:after {
         background-image: url("/pictograms/felix.svg");
     }
+
+    #simple ol li { padding-left: 5rem; }
 
 }
 
