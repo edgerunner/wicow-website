@@ -51,10 +51,6 @@ p, ul, ol {
     padding-left: unset;
 }
 
-p + ul, p + ol {
-    margin-top: -2rem;
-}
-
 ul.ellipsis { list-style: none }
 ul.ellipsis > li:before { content: "…"; } 
 
