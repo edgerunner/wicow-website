@@ -20,13 +20,12 @@ en:
         - em:
             - map:
                 count:
-                    - ~
-                    - a movie
-                    - two movies
-                    - three movies
-                    - four movies
-                    - five movies
-                    - six movies
+                    1: a movie
+                    2: two movies
+                    3: three movies
+                    4: four movies
+                    5: five movies
+                    6: six movies
         - map: 
             timeframe:
                 day: every day
@@ -64,13 +63,13 @@ tr:
         - em:
             - map:
                 count:
-                    - ~
-                    - bir film
-                    - iki film
-                    - üç film
-                    - dört film
-                    - beş film
-                    - altı film
+                    1: bir
+                    2: iki
+                    3: üç
+                    4: dört
+                    5: beş
+                    6: altı
+            - film
         - izleyebilirsin
         
             
@@ -108,13 +107,12 @@ de:
         - em:
             - map:
                 count:
-                    - ~
-                    - ein Film
-                    - zwei Filme
-                    - drei Filme
-                    - vier Filme
-                    - fünf Filme
-                    - sechs Filme
+                    1: ein Film
+                    2: zwei Filme
+                    3: drei Filme
+                    4: vier Filme
+                    5: fünf Filme
+                    6: sechs Filme
         - ansehlen
         
 
