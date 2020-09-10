@@ -116,10 +116,11 @@ nav.locale a.current {
 #simple ol li::before {
     color: var(--darkish);
     font-size: 8rem;
+    line-height: 6rem;
     font-weight: 900;
     content: counter(count);
     position: absolute;
-    top: 2rem;
+    top: 0;
     left: 0; 
     z-index: -1;
 }
