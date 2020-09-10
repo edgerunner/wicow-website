@@ -203,6 +203,25 @@ nav.locale a.current {
     }
 }
 
+@media only screen and (min-width: 48rem) and (max-width: 71.99rem) {
+    #simple ol li {
+        padding-left: unset;
+    }
+
+    #simple ol li:before {
+        right: calc(100% + 1rem);
+        left: unset;
+    }
+
+    #simple ol li:after {
+        right: calc(100% + 8rem);
+        left: unset;
+        height: 6rem;
+        background-position: right bottom;
+        top: 0;
+    }
+}
+
 @media only screen and (min-width: 72rem) {
     section, header {
         padding-left: calc(40vw - 6rem);
