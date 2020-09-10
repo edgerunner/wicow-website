@@ -272,6 +272,15 @@ nav.locale a.current {
     section > h2 + p {
         margin-top: 0;
     }
+
+    #simple {
+        background-image: image-set(
+            "/images/mobile-screenshot.png" 1x,
+            "/images/mobile-screenshot@2x.png" 2x
+        );
+        background-repeat: no-repeat;
+        background-size: 30vw;
+    }
 }
 
 @media only screen and (min-width: 96rem) {
@@ -304,5 +313,11 @@ nav.locale a.current {
     section > p {
         font-size: 1.5rem;
         line-height: 3rem;
+    }
+
+    #simple {
+        min-height: 30vw;
+        background-size: auto 30vw;
+        background-position: left center;
     }
 }
