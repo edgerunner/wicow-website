@@ -9,8 +9,8 @@ export default function BenefitCalculator() {
     const { label, intro } = useTranslation(translations);
 
     return <aside>
-        <label>{label}</label>
-        <CowCount value={cowCount} onChange={updateCowCount}/>
+        <label htmlFor="benefit-cows">{label}</label>
+        <CowCount id="benefit-cows" value={cowCount} onChange={updateCowCount}/>
         
         <p>
             <Translate keys={intro} mapping={{cowCount}}/>

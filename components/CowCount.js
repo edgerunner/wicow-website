@@ -24,6 +24,7 @@ export default function CowCount(props) {
 
     return <div> 
         <input type="range" 
+            id={props.id}
             list="cow-count" 
             value={position}
             onChange={e => setPosition(e.target.value)}
