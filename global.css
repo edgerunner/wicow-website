@@ -86,7 +86,7 @@ ul.ellipsis { list-style: none }
 ul.ellipsis > li:before { content: "…"; } 
 
 em { 
-    all: unset;
+    font-style: unset;
     color: var(--wicow-blue);
 }
 
