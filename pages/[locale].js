@@ -45,12 +45,17 @@ function Sections() {
 }
 
 function LocaleNav() {
+  const names = {
+    en: "English",
+    de: "Deutsch",
+    tr: "Türkçe"
+  }
   const locale = useLocale();
   return (
     <nav className="locale">
       { locales.map(loc => 
         <Link href="/[locale]" as={`/${loc}`} key={loc}>
-          <a className={{[locale]:"current"}[loc]}>{loc}</a>
+          <a lang={loc} title={names[loc]} className={{[locale]:"current"}[loc]}>{loc}</a>
         </Link>
       ) }
     </nav>

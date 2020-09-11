@@ -87,7 +87,6 @@ nav.locale {
 
 nav.locale a {
     display: block;
-    color: var(--darkish);
     width: 3rem;
     text-decoration: none;
     text-transform: uppercase;
