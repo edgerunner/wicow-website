@@ -9,7 +9,7 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Wicow</title>
+        <title>wiCow</title>
       </Head>
 
       
