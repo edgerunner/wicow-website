@@ -302,6 +302,11 @@ nav.locale a.current {
             "/images/mobile-screenshot.png" 1x,
             "/images/mobile-screenshot@2x.png" 2x
         );
+        background-image: image-set(
+            "/images/mobile-screenshot.webp" 1x,
+            "/images/mobile-screenshot@2x.webp" 2x
+        );
+        
         background-repeat: no-repeat;
         background-size: 30vw;
     }
