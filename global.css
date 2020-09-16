@@ -150,6 +150,29 @@ nav.locale a.current {
     z-index: -1;
 }
 
+.AlertsSummary dl {
+    display: grid;
+    grid-template-columns: min-content auto;
+    grid-gap: 0 1rem;
+    grid-auto-flow: row dense;
+    align-items: center;
+}
+
+.AlertsSummary dt {
+    grid-column: 2;
+    font-weight: 300;
+}
+
+.AlertsSummary dd {
+    margin: unset;
+    grid-column: 1;
+    text-align: end;
+    font-size: 2.5em;
+    font-weight: 900;
+}
+
+
+
 @media only screen and (min-width: 24rem) {
     body {
         padding: clamp(1rem, 4vw, 3rem);
