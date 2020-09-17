@@ -150,6 +150,31 @@ nav.locale a.current {
     z-index: -1;
 }
 
+.AlertsSummary dl {
+    display: grid;
+    grid-template-columns: min-content auto;
+    grid-gap: 1rem;
+    grid-auto-flow: row dense;
+}
+
+.AlertsSummary dt {
+    grid-column: 2;
+    font-weight: 300;
+    max-width: 12em;
+}
+
+.AlertsSummary dd {
+    margin: unset;
+    grid-column: 1;
+    text-align: end;
+    font-size: 2.5em;
+    line-height: 1;
+    font-weight: 900;
+    font-variant-numeric: proportional-nums;
+}
+
+
+
 @media only screen and (min-width: 24rem) {
     body {
         padding: clamp(1rem, 4vw, 3rem);
@@ -226,6 +251,15 @@ nav.locale a.current {
         margin-top: -1rem;
         background-position: top left;
     }
+
+    #no-bullshit aside.AlertsSummary {
+        grid-column: 1;
+        grid-row: 3 / 5;
+    }
+
+     #no-bullshit aside.AlertsSummary dl {
+         margin: 0;
+     }
 }
 
 @media only screen and (min-width: 48rem) and (max-width: 71.99rem) {
@@ -310,6 +344,13 @@ nav.locale a.current {
         background-repeat: no-repeat;
         background-size: 30vw;
     }
+
+    #no-bullshit aside.AlertsSummary {
+        position: absolute;
+        left: 0;
+        top: 10rem;
+        width: calc(40vw - 10rem);
+    }
 }
 
 @media only screen and (min-width: 96rem) {
@@ -348,5 +389,10 @@ nav.locale a.current {
         min-height: 30vw;
         background-size: auto 30vw;
         background-position: left center;
+    }
+
+    #no-bullshit aside.AlertsSummary {
+        width: calc(25vw - 8rem);
+        top: 12rem;
     }
 }

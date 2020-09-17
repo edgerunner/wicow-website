@@ -1,0 +1,17 @@
+en:
+    perfect: Calvings accurately detected on first attempt
+    eventual: Calvings eventually detected on later attempts
+    false_: Undetected calvings with previous false alerts
+    missed: Undetected calvings without any alerts
+
+tr:
+    perfect: Tek seferde doğru teşhis edilen buzağılama
+    eventual: Sonraki denemelerde doğru teşhis edilen buzağılama
+    false_: Sadece hatalı bildirim yapılmış buzağılama
+    missed: Hiç bildirim yapılmamış buzağılama
+
+de:
+    perfect: Kalbungen beim ersten Versuch genau erkannt
+    eventual: Bei späteren Versuchen wurden schließlich Kalbungen festgestellt
+    false_: Nicht erkannte Kalbungen mit vorherigen Fehlalarmen
+    missed: Nicht erkannte Kalbungen ohne Warnungen
