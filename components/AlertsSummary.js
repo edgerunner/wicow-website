@@ -14,7 +14,9 @@ export default function AlertsSummary() {
 
     useEffect(() => {
         if (state.initial) { getAlerts() }
-    }, []);
+        if (state.error) { return timeout(getAlerts, 1000); }
+        if (state.data) { return timeout(getAlerts, 5000); }
+    }, [state]);
 
 
 
@@ -38,6 +40,11 @@ export default function AlertsSummary() {
 }
 
 async function fetchAlerts() { return (await fetch("/api/alerts")).json(); }
+
+function timeout(callback, duration) {
+    const id = setTimeout(callback, duration);
+    return () => clearTimeout(id);
+}
 
 function reducer(state, action) {
     switch (action.type) {
