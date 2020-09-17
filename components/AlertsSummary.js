@@ -22,23 +22,21 @@ export default function AlertsSummary() {
 
 
 
-    return <aside className="AlertsSummary">{
-        state?.data 
-        ? <dl>
+    return <aside className="AlertsSummary">
+        <dl>
             <dt>Calvings accurately detected on first attempt</dt>
-            <dd><em><Number value={state.data.perfect}/></em></dd>
+            <dd><em><Number value={state.data?.perfect} fallback="…"/></em></dd>
 
             <dt>Calvings eventually detected on later attempts</dt>
-            <dd><Number value={state.data.eventual}/></dd>
+            <dd><Number value={state.data?.eventual} fallback="…"/></dd>
 
             <dt>Undetected calvings with previous false alerts</dt>
-            <dd><Number value={state.data.false_}/></dd>
+            <dd><Number value={state.data?.false_} fallback="…"/></dd>
 
             <dt>Undetected calvings without any alerts</dt>
-            <dd><Number value={state.data.missed}/></dd>
+            <dd><Number value={state.data?.missed} fallback="…"/></dd>
         </dl>
-        : <>…</>
-    }</aside>;
+    </aside>;
 }
 
 async function fetchAlerts() { return (await fetch("/api/alerts")).json(); }
@@ -51,12 +49,13 @@ function timeout(callback, duration) {
 function reducer(state, action) {
     switch (action.type) {
         case "success": return { data: action.data };
-        case "error": return { error: action.error };
-        case "start": return { loading: true };
+        case "error": return { error: action.error, data: state.data };
+        case "start": return { loading: true, error: state.error, data: state.data };
     }
 }
 
-function Number({value}) {
+function Number({value, fallback = null}) {
+    if (!value) { return fallback; }
     const locale = useLocale();
     return <data value={value}>{value.toLocaleString(locale)}</data>;
 }
