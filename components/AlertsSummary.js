@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useReducer } from "react";
 import { useLocale } from "../hooks";
 
+const polling_timeout = process.env.NEXT_PUBLIC_FETCH_POLLING_INTERVAL;
+const retry_timeout = process.env.NEXT_PUBLIC_FETCH_RETRY_INTERVAL;
 
 export default function AlertsSummary() {
     const [state, dispatch] = useReducer(reducer, { initial: true });
@@ -14,8 +16,8 @@ export default function AlertsSummary() {
 
     useEffect(() => {
         if (state.initial) { getAlerts() }
-        if (state.error) { return timeout(getAlerts, 1000); }
-        if (state.data) { return timeout(getAlerts, 5000); }
+        if (state.error) { return timeout(getAlerts, retry_timeout); }
+        if (state.data) { return timeout(getAlerts, polling_timeout); }
     }, [state]);
 
 
