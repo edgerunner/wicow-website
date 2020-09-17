@@ -1,10 +1,13 @@
 import { useCallback, useEffect, useReducer } from "react";
-import { useLocale } from "../hooks";
+import { useLocale, useTranslation } from "../hooks";
+import translations from "./AlertsSummary.yaml";
 
 const polling_timeout = process.env.NEXT_PUBLIC_FETCH_POLLING_INTERVAL;
 const retry_timeout = process.env.NEXT_PUBLIC_FETCH_RETRY_INTERVAL;
 
 export default function AlertsSummary() {
+    const keys = useTranslation(translations);
+
     const [state, dispatch] = useReducer(reducer, { initial: true });
 
     const getAlerts = useCallback(() => {
@@ -24,16 +27,16 @@ export default function AlertsSummary() {
 
     return <aside className="AlertsSummary">
         <dl>
-            <dt>Calvings accurately detected on first attempt</dt>
+            <dt>{keys.perfect}</dt>
             <dd><em><Number value={state.data?.perfect} fallback="…"/></em></dd>
 
-            <dt>Calvings eventually detected on later attempts</dt>
+            <dt>{keys.eventual}</dt>
             <dd><Number value={state.data?.eventual} fallback="…"/></dd>
 
-            <dt>Undetected calvings with previous false alerts</dt>
+            <dt>{keys.false_}</dt>
             <dd><Number value={state.data?.false_} fallback="…"/></dd>
 
-            <dt>Undetected calvings without any alerts</dt>
+            <dt>{keys.missed}</dt>
             <dd><Number value={state.data?.missed} fallback="…"/></dd>
         </dl>
     </aside>;
