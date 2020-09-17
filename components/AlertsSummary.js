@@ -1,22 +1,19 @@
-import { useEffect, useReducer } from "react";
+import { useCallback, useEffect, useReducer } from "react";
 import { useLocale } from "../hooks";
 
 
 export default function AlertsSummary() {
     const [state, dispatch] = useReducer(reducer, { initial: true });
 
+    const getAlerts = useCallback(() => {
+        dispatch({type: "start"});
+        fetchAlerts()
+            .then(data => dispatch({type: "success", data}))
+            .catch(error => dispatch({type: "error", error}));
+    }, [dispatch]);
+
     useEffect(() => {
-        if (state.initial) {
-            dispatch({type: "loading"});
-            async function fetchAlerts() {
-                const res = await fetch("/api/alerts");
-                res
-                    .json()
-                    .then(data => dispatch({type: "success", data}))
-                    .catch(error => dispatch({type: "error", error}));
-            };
-            fetchAlerts();
-        }
+        if (state.initial) { getAlerts() }
     }, []);
 
 
@@ -40,11 +37,13 @@ export default function AlertsSummary() {
     }</aside>;
 }
 
+async function fetchAlerts() { return (await fetch("/api/alerts")).json(); }
+
 function reducer(state, action) {
     switch (action.type) {
         case "success": return { data: action.data };
         case "error": return { error: action.error };
-        case "loading": return { loading: true };
+        case "start": return { loading: true };
     }
 }
 
