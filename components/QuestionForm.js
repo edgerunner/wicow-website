@@ -22,25 +22,46 @@ const machine = Machine({
             initial: "blank",
             states: {
                 blank: {}, 
-                halfway: {},
-                ready: {},
+                halfway: {
+                    always : [
+                        { cond: "valid", target: "ready" },
+                        { cond: "empty", target: "blank" },
+                    ],
+                    on: { SUBMIT: "invalid" }
+                },
+                ready: {
+                    on: { SUBMIT: "#submission" }
+                },
                 invalid: {}
             },
             on: {
                 UPDATE: {
                     target: ".halfway",
+                    internal: true,
                     actions: assign((context, event) => 
                         ({...context, [event.field]: event.value })),
                 },
-            }
+            },
         }, 
         submission: {
+            id: "submission",
             initial: "pending",
             states: {
                 pending: {},
                 done: {},
                 error: {}
             }
+        }
+    }
+}, {
+    guards: {
+        valid({name, email, question}) { 
+            return name.match(/\S/) && 
+                question.match(/\S/) &&
+                email.match(/\w+(?:[.+-]\w+)*@\w+(?:[-.]\w+)*\.[a-z]{2,}/i);
+        },
+        empty({name, email, question}) { 
+            return [name, email, question].join("").match(/^\s*$/)
         }
     }
 });
