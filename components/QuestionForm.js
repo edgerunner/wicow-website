@@ -10,7 +10,7 @@ if (typeof window !== 'undefined') {
 }
 
 const machine = Machine({
-    id: "question-form",
+    id: "question",
     initial: "form",
     context: {
         name: "",
@@ -19,7 +19,7 @@ const machine = Machine({
     },
     states: {
         form: {
-            initial: "blank",
+            initial: "halfway",
             states: {
                 blank: {}, 
                 halfway: {
@@ -30,7 +30,7 @@ const machine = Machine({
                     on: { SUBMIT: "invalid" }
                 },
                 ready: {
-                    on: { SUBMIT: "#submission" }
+                    on: { SUBMIT: "#question.submission" }
                 },
                 invalid: {}
             },
@@ -44,12 +44,32 @@ const machine = Machine({
             },
         }, 
         submission: {
-            id: "submission",
             initial: "pending",
             states: {
-                pending: {},
-                done: {},
-                error: {}
+                pending: {
+                    invoke: {
+                        id: "post-question",
+                        src: "postQuestion",
+                        onDone: "done",
+                        onError: {
+                            target: "error",
+                            actions: assign({ error: (context, event) => event })
+                        }
+                    },
+                    after: { 15000: "error" }
+                },
+                done: {
+                    on: { 
+                        ANOTHER: {
+                            target: "#question.form",
+                            actions: assign({ name: "", email: "", question: "" })
+                        }
+                    }
+                },
+                error: {
+                    exit: assign({ error: undefined }),
+                    on: { RETRY: "#question.form" }
+                }
             }
         }
     }
@@ -62,6 +82,16 @@ const machine = Machine({
         },
         empty({name, email, question}) { 
             return [name, email, question].join("").match(/^\s*$/)
+        }
+    },
+    services: {
+        async postQuestion(context) {
+            const response = await fetch("/api/question", {
+                method: "POST",
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(context)
+            });
+            return response.ok ? response.status : Promise.reject(response.status);
         }
     }
 });
@@ -76,8 +106,13 @@ export default function QuestionForm() {
         });
     }
 
+    function submit(event) {
+        event.preventDefault();
+        send("SUBMIT");
+    }
+
     return <aside className="QuestionForm">
-        <form autoComplete="on">
+        <form autoComplete="on" onSubmit={submit}>
             <label htmlFor="question-name">Hello, my name is</label>
             <input id="question-name" name="name"
                 type="text" autoComplete="name" 
