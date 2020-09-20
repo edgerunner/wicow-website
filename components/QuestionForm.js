@@ -1,6 +1,7 @@
 import { Machine, assign } from "xstate";
 import { useMachine } from "@xstate/react";
 import { inspect } from "@xstate/inspect";
+import { useEffect } from "react";
 
 if (typeof window !== 'undefined') {
     inspect({
@@ -110,6 +111,14 @@ export default function QuestionForm() {
         event.preventDefault();
         send("SUBMIT");
     }
+
+    // Make Webkit drop the forced autofill styles
+    // by rewriting input values
+    useEffect(() => {
+        ["name", "email"]
+        .map(id => document.getElementById(`question-${id}`))
+        .map(element => { element.value = `${element.value}`})
+    });
 
     return <aside className="QuestionForm">
         <form autoComplete="on" onSubmit={submit}>
