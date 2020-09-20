@@ -97,7 +97,7 @@ const machine = Machine({
 });
 
 export default function QuestionForm() {
-    const [current, send] = useMachine(machine, { devTools: true });
+    const [state, send] = useMachine(machine, { devTools: true });
     function update(event) {
         send({
             type: "UPDATE",
@@ -117,18 +117,18 @@ export default function QuestionForm() {
             <input id="question-name" name="name"
                 type="text" autoComplete="name" 
                 placeholder="Peter? Simone? Rahul?"
-                value={current.context.name} onChange={update}
+                value={state.context.name} onChange={update}
                 />
 
             <label htmlFor="question-email">and my email address is</label>
             <input id="question-email" type="email" name="email"
                 placeholder="you@yourfarm.com" 
-                value={current.context.email} onChange={update}/>
+                value={state.context.email} onChange={update}/>
 
             <label htmlFor="question-question">My question is</label>
             <textarea id="question-question" name="question" 
                 placeholder="How do I …" onChange={update} 
-                value={current.context.question} />
+                value={state.context.question} />
 
             <button id="question-ask" type="submit">Ask Tolga</button>
         </form>
