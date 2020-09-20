@@ -117,19 +117,23 @@ export default function QuestionForm() {
             <input id="question-name" name="name"
                 type="text" autoComplete="name" 
                 placeholder="Peter? Simone? Rahul?"
+                disabled={!state.matches("form")}
                 value={state.context.name} onChange={update}
                 />
 
             <label htmlFor="question-email">and my email address is</label>
             <input id="question-email" type="email" name="email"
                 placeholder="you@yourfarm.com" 
-                value={state.context.email} onChange={update}/>
+                disabled={!state.matches("form")}
+                value={state.context.email} onChange={update}
+                />
 
             <label htmlFor="question-question">My question is</label>
             <textarea id="question-question" name="question" 
-                placeholder="How do I …" onChange={update} 
+                placeholder="How do I …" onChange={update}
+                disabled={!state.matches("form")}
                 value={state.context.question} />
-
+            
             <button id="question-ask" type="submit">Ask Tolga</button>
         </form>
     </aside>

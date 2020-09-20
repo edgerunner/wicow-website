@@ -169,6 +169,12 @@ form input:focus {
     box-shadow: 0 0 0 calc(1rem / 8) var(--wicow-blue);
 }
 
+form textarea:disabled,
+form input:disabled {
+    background-color: var(--darkish);
+    box-shadow: 0 0 0 1px var(--dark) inset;
+}
+
 form ::placeholder {
     color: var(--darkish);
 }
