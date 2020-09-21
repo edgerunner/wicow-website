@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import {useTranslation, Translate} from '../hooks';
 import translations from './QuestionForm.yaml';
 
-if (typeof window !== 'undefined') {
+if (typeof window !== 'undefined' && process.env.NEXT_PUBLIC_USE_DEVELOPER_TOOLS) {
     inspect({
         url: "https://statecharts.io/inspect",
         iframe: false
