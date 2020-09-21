@@ -199,9 +199,13 @@ export default function QuestionForm() {
 
             { state.matches("question.form.invalid")
             ? <button id="question-ask" disabled>{t.button.invalid}</button>
-            : state.matches("question.form")
+            : state.matches("question.form") 
             ? <button id="question-ask" type="submit">
-                <Translate keys={t.button.submit} mapping={{agentName: "Tolga"}}/>
+                { state.matches("agent.selected")
+                ? <Translate keys={t.button.submit.agent} 
+                    mapping={{agentName: state.context.agent.name}}/>
+                : t.button.submit.generic
+                }
               </button>
             : state.matches("question.submission.error")
             ? <>
@@ -213,7 +217,12 @@ export default function QuestionForm() {
             : state.matches("question.submission.done")
             ? <>
                 <label htmlFor="question-ask">
-                    <Translate keys={t.button.done.label} mapping={{agentName: "Tolga"}}/>
+                    { state.matches("agent.selected")
+                    ? <Translate keys={t.button.done.label.agent} 
+                        mapping={{agentName: state.context.agent.name}}/>
+                    : t.button.done.label.generic
+                    }
+                    
                 </label>
                 <button id="question-ask" onClick={()=>send("ANOTHER")}>
                     {t.button.done.text}
@@ -221,7 +230,11 @@ export default function QuestionForm() {
               </>
             : state.matches("question.submission.pending")
             ? <button id="question-ask" disabled>
-                <Translate keys={t.button.pending} mapping={{agentName: "Tolga"}}/>
+                { state.matches("agent.selected")
+                ? <Translate keys={t.button.pending.agent} 
+                    mapping={{agentName: state.context.agent.name}}/>
+                : t.button.pending.generic
+                }
               </button>
             : null
             }
