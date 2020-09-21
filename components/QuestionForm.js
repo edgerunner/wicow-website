@@ -172,6 +172,13 @@ export default function QuestionForm() {
         send({ type: "SET_LANGUAGE", language: t.language }); }, 
         [t.language]);
 
+    function WithAgent({t}) {
+        return state.matches("agent.selected")
+            ? <Translate keys={t.agent} 
+                mapping={{agentName: state.context.agent.name}}/>
+            : t.generic;
+    }
+
     return <aside className="QuestionForm">
         <form autoComplete="on" onSubmit={submit}>
             <label htmlFor="question-name">{t.name.label}</label>
@@ -201,11 +208,7 @@ export default function QuestionForm() {
             ? <button id="question-ask" disabled>{t.button.invalid}</button>
             : state.matches("question.form") 
             ? <button id="question-ask" type="submit">
-                { state.matches("agent.selected")
-                ? <Translate keys={t.button.submit.agent} 
-                    mapping={{agentName: state.context.agent.name}}/>
-                : t.button.submit.generic
-                }
+                <WithAgent t={t.button.submit} />
               </button>
             : state.matches("question.submission.error")
             ? <>
@@ -217,12 +220,7 @@ export default function QuestionForm() {
             : state.matches("question.submission.done")
             ? <>
                 <label htmlFor="question-ask">
-                    { state.matches("agent.selected")
-                    ? <Translate keys={t.button.done.label.agent} 
-                        mapping={{agentName: state.context.agent.name}}/>
-                    : t.button.done.label.generic
-                    }
-                    
+                    <WithAgent t={t.button.done.label} />
                 </label>
                 <button id="question-ask" onClick={()=>send("ANOTHER")}>
                     {t.button.done.text}
@@ -230,11 +228,7 @@ export default function QuestionForm() {
               </>
             : state.matches("question.submission.pending")
             ? <button id="question-ask" disabled>
-                { state.matches("agent.selected")
-                ? <Translate keys={t.button.pending.agent} 
-                    mapping={{agentName: state.context.agent.name}}/>
-                : t.button.pending.generic
-                }
+                <WithAgent t={t.button.pending} />
               </button>
             : null
             }
