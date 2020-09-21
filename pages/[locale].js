@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import { useLocale } from '../hooks';
-import { KnowYourCows, SitBackAndRelax, Simple, NoBullshit } from '../sections';
+import { KnowYourCows, SitBackAndRelax, Simple, NoBullshit, Horsemouth } from '../sections';
 
 const locales = [ "en", "de", "tr" ];
 
@@ -36,7 +36,8 @@ function Sections() {
     KnowYourCows,
     SitBackAndRelax,
     Simple,
-    NoBullshit
+    NoBullshit,
+    Horsemouth
   ].map(
     (section, index) => {
       const Section = section[locale];

@@ -28,6 +28,7 @@
     --darkish: #666;
     --light: #fefefe;
     --wicow-blue: #3FD1FF;
+    --signal-yellow: #F2C94C;
 }
 html,
 body {
@@ -123,6 +124,89 @@ nav.locale a {
 nav.locale a.current {
     background-color: var(--wicow-blue);
     color: var(--dark);
+}
+
+form {
+    background-color: var(--darkish);
+    padding: .5rem;
+    border-radius: .5rem;
+    display: grid;
+    grid-auto-flow: row;
+    grid-auto-rows: 2rem;
+    grid-gap: .5rem;
+    font-size: 1.2rem;
+}
+
+form > * {
+    display: block;
+}
+
+form label {
+    font-weight: 300;
+    align-self: end;
+}
+
+form button,
+form textarea,
+form input {
+    border-radius: .25rem;
+    border: none;
+    background-color: var(--dark);
+    font: inherit;
+    color: inherit;
+    padding: 0 .5rem;
+    line-height: 2rem;
+}
+
+form textarea {
+    resize: none;
+    grid-row: auto / span 3;
+    height: 100%;
+}
+
+form textarea:focus,
+form input:focus {
+    outline: none;
+    box-shadow: 0 0 0 calc(1rem / 8) var(--wicow-blue);
+}
+
+form textarea:disabled,
+form input:disabled,
+form button:disabled {
+    background-color: var(--darkish);
+    box-shadow: 0 0 0 1px var(--dark) inset;
+}
+
+form ::placeholder {
+    color: var(--darkish);
+}
+
+form button {
+    color: var(--dark);
+    background-color: var(--wicow-blue);
+}
+
+form button:focus,
+form button:active {
+    outline: none;
+}
+
+form button:disabled {
+    color: var(--wicow-blue);
+}
+
+form label.problem {
+    color: var(--signal-yellow);
+}
+
+/* Dirty trick to prevent webkit from messing up the form styles on autocomplete */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    transition-property: background-color, color;
+    transition-duration: 5000s;
+    transition-function: ease-in;
 }
 
 #simple ol {
