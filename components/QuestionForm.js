@@ -2,6 +2,8 @@ import { Machine, assign } from "xstate";
 import { useMachine } from "@xstate/react";
 import { inspect } from "@xstate/inspect";
 import { useEffect } from "react";
+import {useTranslation, Translate} from '../hooks';
+import translations from './QuestionForm.yaml';
 
 if (typeof window !== 'undefined') {
     inspect({
@@ -126,52 +128,58 @@ export default function QuestionForm() {
         .map(element => { element.value = `${element.value}`})
     });
 
+    const t = useTranslation(translations);
+
     return <aside className="QuestionForm">
         <form autoComplete="on" onSubmit={submit}>
-            <label htmlFor="question-name">Hello, my name is</label>
+            <label htmlFor="question-name">{t.name.label}</label>
             <input id="question-name" name="name"
                 type="text" autoComplete="name" 
-                placeholder="Peter? Simone? Rahul?"
+                placeholder={t.name.placeholder}
                 disabled={!state.matches("form")}
                 value={state.context.name} onChange={update}
                 />
 
-            <label htmlFor="question-email">and my email address is</label>
+            <label htmlFor="question-email">{t.email.label}</label>
             <input id="question-email" type="email" name="email"
-                placeholder="you@yourfarm.com" 
+                placeholder={t.email.placeholder} 
                 disabled={!state.matches("form")}
                 value={state.context.email} onChange={update}
                 />
 
-            <label htmlFor="question-question">My question is</label>
+            <label htmlFor="question-question">{t.question.label}</label>
             <textarea id="question-question" name="question" 
-                placeholder="How do I …" onChange={update}
+                placeholder={t.question.placeholder} onChange={update}
                 disabled={!state.matches("form")}
                 value={state.context.question} />
             
             
 
             { state.matches({form: "invalid"})
-            ? <button id="question-ask" disabled>Complete the form first</button>
+            ? <button id="question-ask" disabled>{t.button.invalid}</button>
             : state.matches("form")
-            ? <button id="question-ask" type="submit">Ask Tolga</button>
+            ? <button id="question-ask" type="submit">
+                <Translate keys={t.button.submit} mapping={{agentName: "Tolga"}}/>
+              </button>
             : state.matches({ submission: "error" })
             ? <>
                 <label htmlFor="question-ask" className="problem">
-                    There was a problem sending your question.
+                    {t.button.error.label}
                 </label>
-                <button id="question-ask" onClick={()=>send("RETRY")}>Retry</button>
+                <button id="question-ask" onClick={()=>send("RETRY")}>{t.button.error.text}</button>
               </>
             : state.matches({ submission: "done"})
             ? <>
-                <label htmlFor="question-ask">Tolga received your question</label>
+                <label htmlFor="question-ask">
+                    <Translate keys={t.button.done.label} mapping={{agentName: "Tolga"}}/>
+                </label>
                 <button id="question-ask" onClick={()=>send("ANOTHER")}>
-                    Ask another.
+                    {t.button.done.text}
                 </button>
               </>
             : state.matches({ submission: "pending"})
             ? <button id="question-ask" disabled>
-                Asking Tolga now…
+                <Translate keys={t.button.pending} mapping={{agentName: "Tolga"}}/>
               </button>
             : null
             }
