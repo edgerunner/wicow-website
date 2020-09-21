@@ -107,6 +107,7 @@ const machine = Machine({
 
 export default function QuestionForm() {
     const [state, send] = useMachine(machine, { devTools: true });
+
     function update(event) {
         send({
             type: "UPDATE",
@@ -129,6 +130,8 @@ export default function QuestionForm() {
     });
 
     const t = useTranslation(translations);
+
+    useEffect(() => { send({ type: "UPDATE", field: "language", value: t.language }); }, [t.language]);
 
     return <aside className="QuestionForm">
         <form autoComplete="on" onSubmit={submit}>

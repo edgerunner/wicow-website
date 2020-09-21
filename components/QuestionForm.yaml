@@ -21,6 +21,7 @@ en:
       label: There was a problem sending your question
       text: Retry
     pending: [Asking, var: agentName, now…]
+  language: en
 
 tr:
   name:
@@ -45,6 +46,7 @@ tr:
       label: Eyvah, bir sorun var…
       text: Tekrar dene
     pending: [Soru, var: agentName, "'ya gelsin…"]
+  language: tr
 
 de:
   name:
@@ -69,3 +71,4 @@ de:
       label: Beim Senden Ihrer Frage ist ein Problem aufgetreten
       text: Wiederholen
     pending: [var: agentName, jetzt fragen…]
+  language: de
