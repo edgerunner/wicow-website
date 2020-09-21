@@ -1,0 +1,74 @@
+en:
+  name:
+    label: Hello, my name is
+    placeholder: Peter? Simone? Rahul?
+
+  email:
+    label: and my email address is
+    placeholder: you@yourfarm.com
+
+  question:
+    label: My question is
+    placeholder: How do I … ?
+
+  button:
+    submit: [Ask, var: agentName]
+    invalid: Complete the form first
+    done:
+      label: [var: agentName, received your question]
+      text: Ask another
+    error:
+      label: There was a problem sending your question
+      text: Retry
+    pending: [Asking, var: agentName, now…]
+  language: en
+
+tr:
+  name:
+    label: Merhaba, adım
+    placeholder: Burak? Zeynep? Özgür?
+
+  email:
+    label: ve e-posta adresim de
+    placeholder: sen@ciftligin.com
+
+  question:
+    label: Sorum şöyle
+    placeholder: … nasıl yaparım?
+
+  button:
+    submit: [var: agentName, "'ya sor"]
+    invalid: Önce formu doldur
+    done:
+      label: [var: agentName, sorunu aldı]
+      text: Başka sor
+    error:
+      label: Eyvah, bir sorun var…
+      text: Tekrar dene
+    pending: [Soru, var: agentName, "'ya gelsin…"]
+  language: tr
+
+de:
+  name:
+    label: Hallo, ich heiße
+    placeholder: Peter? Simone? Rahul?
+
+  email:
+    label: und meine E-Mail-Adresse ist
+    placeholder: sie@ihremilchfarm.com
+
+  question:
+    label: Meine Frage ist
+    placeholder: Wie mache ich … ?
+
+  button:
+    submit: [Frage, var: agentName]
+    invalid: Füllen Sie zuerst das Formular aus
+    done:
+      label: [var: agentName, hat deine Frage erhalten]
+      text: Andere Frage
+    error:
+      label: Beim Senden Ihrer Frage ist ein Problem aufgetreten
+      text: Wiederholen
+    pending: [var: agentName, jetzt fragen…]
+  language: de
