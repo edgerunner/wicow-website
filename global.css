@@ -170,7 +170,8 @@ form input:focus {
 }
 
 form textarea:disabled,
-form input:disabled {
+form input:disabled,
+form button:disabled {
     background-color: var(--darkish);
     box-shadow: 0 0 0 1px var(--dark) inset;
 }
@@ -182,6 +183,15 @@ form ::placeholder {
 form button {
     color: var(--dark);
     background-color: var(--wicow-blue);
+}
+
+form button:focus,
+form button:active {
+    outline: none;
+}
+
+form button:disabled {
+    color: var(--wicow-blue);
 }
 
 /* Dirty trick to prevent webkit from messing up the form styles on autocomplete */

@@ -143,7 +143,26 @@ export default function QuestionForm() {
                 disabled={!state.matches("form")}
                 value={state.context.question} />
             
-            <button id="question-ask" type="submit">Ask Tolga</button>
+            
+
+            { state.matches({form: "invalid"})
+            ? <button id="question-ask" disabled>Complete the form first</button>
+            : state.matches("form")
+            ? <button id="question-ask" type="submit">Ask Tolga</button>
+            : state.matches({ submission: "error" })
+            ? <button id="question-ask" onClick={()=>send("RETRY")}>
+                There was a problem sending your question. Retry
+              </button>
+            : state.matches({ submission: "done"})
+            ? <button id="question-ask" onClick={()=>send("ANOTHER")}>
+                We received your question. Ask another.
+              </button>
+            : state.matches({ submission: "pending"})
+            ? <button id="question-ask" disabled>
+                Asking Tolga now.
+              </button>
+            : null
+            }
         </form>
     </aside>
 }
