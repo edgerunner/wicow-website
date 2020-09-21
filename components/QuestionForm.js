@@ -28,12 +28,13 @@ const machine = Machine({
                         { cond: "valid", target: "ready" },
                         { cond: "empty", target: "blank" },
                     ],
-                    on: { SUBMIT: "invalid" }
                 },
                 ready: {
                     on: { SUBMIT: "#question.submission" }
                 },
-                invalid: {}
+                invalid: {
+                    after: { 5000: "halfway" }
+                }
             },
             on: {
                 UPDATE: {
@@ -42,6 +43,7 @@ const machine = Machine({
                     actions: assign((context, event) => 
                         ({...context, [event.field]: event.value })),
                 },
+                SUBMIT: ".invalid"
             },
         }, 
         submission: {
