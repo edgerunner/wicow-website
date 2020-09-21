@@ -28,6 +28,7 @@
     --darkish: #666;
     --light: #fefefe;
     --wicow-blue: #3FD1FF;
+    --signal-yellow: #F2C94C;
 }
 html,
 body {
@@ -192,6 +193,10 @@ form button:active {
 
 form button:disabled {
     color: var(--wicow-blue);
+}
+
+form label.problem {
+    color: var(--signal-yellow);
 }
 
 /* Dirty trick to prevent webkit from messing up the form styles on autocomplete */

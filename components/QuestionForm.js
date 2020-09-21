@@ -154,16 +154,22 @@ export default function QuestionForm() {
             : state.matches("form")
             ? <button id="question-ask" type="submit">Ask Tolga</button>
             : state.matches({ submission: "error" })
-            ? <button id="question-ask" onClick={()=>send("RETRY")}>
-                There was a problem sending your question. Retry
-              </button>
+            ? <>
+                <label htmlFor="question-ask" className="problem">
+                    There was a problem sending your question.
+                </label>
+                <button id="question-ask" onClick={()=>send("RETRY")}>Retry</button>
+              </>
             : state.matches({ submission: "done"})
-            ? <button id="question-ask" onClick={()=>send("ANOTHER")}>
-                We received your question. Ask another.
-              </button>
+            ? <>
+                <label htmlFor="question-ask">Tolga received your question</label>
+                <button id="question-ask" onClick={()=>send("ANOTHER")}>
+                    Ask another.
+                </button>
+              </>
             : state.matches({ submission: "pending"})
             ? <button id="question-ask" disabled>
-                Asking Tolga now.
+                Asking Tolga now…
               </button>
             : null
             }
