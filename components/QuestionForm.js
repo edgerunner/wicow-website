@@ -68,6 +68,7 @@ const machine = Machine({
                     }
                 },
                 error: {
+                    entry: "logError",
                     exit: assign({ error: undefined }),
                     on: { RETRY: "#question.form" }
                 }
@@ -75,6 +76,9 @@ const machine = Machine({
         }
     }
 }, {
+    actions: {
+        logError({error}) { console.error("Error submitting question: ", error) }
+    },
     guards: {
         valid({name, email, question}) { 
             return name.match(/\S/) && 
