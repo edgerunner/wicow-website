@@ -217,6 +217,12 @@ input:-webkit-autofill:active {
     transition-function: ease-in;
 }
 
+.avatar img {
+    height: 1.2em;
+    border-radius: 50%;
+    vertical-align: text-bottom;
+}
+
 #simple ol {
     list-style: none;
     counter-reset: count;

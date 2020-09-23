@@ -174,8 +174,15 @@ export default function QuestionForm() {
 
     function WithAgent({t}) {
         return state.matches("agent.selected")
-            ? <Translate keys={t.agent} 
-                mapping={{agentName: state.context.agent.name}}/>
+            ? <>
+                <Translate keys={t.agent}
+                    mapping={{agentName: state.context.agent.name}}/>
+                <picture className="avatar">
+                    <source type="image/webp" 
+                        srcset={`/avatars/${state.context.agent.id}.webp`}/>
+                    <img src={`/avatars/${state.context.agent.id}.jpg`}/>
+                </picture>
+              </>
             : t.generic;
     }
 
