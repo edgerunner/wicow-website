@@ -12,15 +12,21 @@ en:
     placeholder: How do I … ?
 
   button:
-    submit: [Ask, var: agentName]
+    submit:
+      agent: [Ask, var: agentName]
+      generic: Ask now
     invalid: Complete the form first
     done:
-      label: [var: agentName, received your question]
+      label:
+        agent: [var: agentName, received your question]
+        generic: We received your question
       text: Ask another
     error:
       label: There was a problem sending your question
       text: Retry
-    pending: [Asking, var: agentName, now…]
+    pending:
+      agent: [Asking, var: agentName, now…]
+      generic: Asking now…
   language: en
 
 tr:
@@ -37,15 +43,26 @@ tr:
     placeholder: … nasıl yaparım?
 
   button:
-    submit: [var: agentName, "'ya sor"]
+    submit:
+      agent: [var: agentName, join: "'", harmonize.tr.dative: agentName, sor]
+      generic: Bize sor
     invalid: Önce formu doldur
     done:
-      label: [var: agentName, sorunu aldı]
+      label:
+        agent: [var: agentName, sorunu aldı]
+        generic: Sorunu aldık
       text: Başka sor
     error:
       label: Eyvah, bir sorun var…
       text: Tekrar dene
-    pending: [Soru, var: agentName, "'ya gelsin…"]
+    pending:
+      agent:
+        - Soru
+        - var: agentName
+        - join: "'"
+        - harmonize.tr.dative: agentName
+        - gelsin…
+      generic: Soru yolda…
   language: tr
 
 de:
@@ -62,13 +79,19 @@ de:
     placeholder: Wie mache ich … ?
 
   button:
-    submit: [Frage, var: agentName]
+    submit:
+      agent: [Frage, var: agentName]
+      generic: Frage uns
     invalid: Füllen Sie zuerst das Formular aus
     done:
-      label: [var: agentName, hat deine Frage erhalten]
+      label:
+        agent: [var: agentName, hat deine Frage erhalten]
+        generic: Wir haben Ihre Frage erhalten
       text: Andere Frage
     error:
       label: Beim Senden Ihrer Frage ist ein Problem aufgetreten
       text: Wiederholen
-    pending: [var: agentName, jetzt fragen…]
+    pending:
+      agent: [var: agentName, jetzt fragen…]
+      generic: Fragen Sie jetzt…
   language: de
