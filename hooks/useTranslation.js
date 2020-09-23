@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react';
 import { useLocale } from '.';
+import harmonize from './harmonize';
 
 export function useTranslation(translations) {
     const locale = useLocale();
@@ -29,6 +30,11 @@ export function Translate({ keys, mapping }) {
     if (key === "pluralize") { 
         const count = value?.count ? mapping[value.count] : (mapping.count || 0);
         return <Plural {...{...value, count}} />;
+    }
+
+    const key_harmonize = key.match(/^harmonize\.([.a-z]+)$/);
+    if (key_harmonize) {
+        return harmonize(key_harmonize[1], mapping[value]);
     }
 
     if (key.match(/^[A-Z]/)) {

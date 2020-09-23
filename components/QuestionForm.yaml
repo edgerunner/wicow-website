@@ -44,7 +44,7 @@ tr:
 
   button:
     submit:
-      agent: [var: agentName, "'ya sor"]
+      agent: [var: agentName, join: "'", harmonize.tr.dative: agentName, sor]
       generic: Bize sor
     invalid: Önce formu doldur
     done:
@@ -56,7 +56,12 @@ tr:
       label: Eyvah, bir sorun var…
       text: Tekrar dene
     pending:
-      agent: [Soru, var: agentName, "'ya gelsin…"]
+      agent:
+        - Soru
+        - var: agentName
+        - join: "'"
+        - harmonize.tr.dative: agentName
+        - gelsin…
       generic: Soru yolda…
   language: tr
 

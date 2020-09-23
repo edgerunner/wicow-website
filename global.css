@@ -126,6 +126,14 @@ nav.locale a.current {
     color: var(--dark);
 }
 
+join {
+    margin: 0 -0.4ch;
+    break-after: avoid;
+    break-before: avoid;
+    line-break: strict;
+    word-break: keep-all;
+}
+
 form {
     background-color: var(--darkish);
     padding: .5rem;
