@@ -1,17 +1,44 @@
-import React, {useState, useMemo} from 'react';
+import React, { useMemo, useCallback } from 'react';
+import { Machine, assign } from "xstate";
+import { useMachine } from '@xstate/react';
 import CowCount from './CowCount';
-import {useTranslation, Translate} from '../hooks';
+import { useTranslation, Translate } from '../hooks';
 import translations from './BenefitCalculator.yaml';
 
-export default function BenefitCalculator() {
-    const [cowCount, updateCowCount] = useState(100);
+const machine = Machine({
+    id: "benefits",
+    context: {
+        cowCount: 100
+    },
+    on: {
+        UPDATE_COW_COUNT: { 
+            actions: assign({ cowCount: (context, event) => event.count }),
+            internal: true
+        }
+    },
+    type: "parallel",
+    states: {
+        ExtraCows: {
+        },
+        ExtraMovies: {},
+        ExtraSleep: {}
+    }
+},
+{
+});
 
+ 
+
+export default function BenefitCalculator() {
+    const [ { context: { cowCount }}, send ] = useMachine(machine, { devTools: true });
     const { label, intro } = useTranslation(translations);
+
+    const UPDATE_COW_COUNT = useCallback((count) => { send({ type: "UPDATE_COW_COUNT", count }) }, []);
 
     return <aside>
         <label htmlFor="benefit-cows">{label}</label>
-        <CowCount id="benefit-cows" value={cowCount} onChange={updateCowCount}/>
-        
+        <CowCount id="benefit-cows" value={cowCount} onChange={UPDATE_COW_COUNT}/>
+
         <p>
             <Translate keys={intro} mapping={{cowCount}}/>
         </p>
@@ -26,9 +53,6 @@ export default function BenefitCalculator() {
         `}</style>
     </aside>
 }
-
-
-
 
 function ExtraCows({cows}) {
     const extraCows = useMemo(() => Math.floor(cows * 0.15), [cows])
