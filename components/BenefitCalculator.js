@@ -19,12 +19,32 @@ const machine = Machine({
     type: "parallel",
     states: {
         ExtraCows: {
+            initial: "personal",
+            states: {
+                personal: {
+                    always: { 
+                        cond: { type: "cowCount", min: 201 }, 
+                        target: "team" 
+                    }
+                },
+                team: {
+                    always: { 
+                        cond: { type: "cowCount", max: 200 }, 
+                        target: "personal" 
+                    }
+                }
+            }
         },
         ExtraMovies: {},
         ExtraSleep: {}
     }
 },
 {
+    guards: {
+        cowCount({ cowCount }, _e, { cond: { min = 10, max = 1000 }}) {
+            return (cowCount >= min) && (cowCount <= max);
+        }
+    }
 });
 
  
