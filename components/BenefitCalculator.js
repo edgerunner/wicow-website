@@ -64,21 +64,38 @@ const machine = Machine({
                 },
             },
         },
-        ExtraSleep: {}
+        ExtraSleep: {
+            initial: "hours",
+            on: { UPDATE_COW_COUNT: "ExtraSleep" },
+            states: {
+                hours: {
+                    entry: { type: "derive", field: "extraSleep", factor: 1/150, scale: 1/2 },
+                    always: { target: "minutes", cond: { type: "noSleep", below: 1 } }
+                },
+                minutes: {
+                    entry: { type: "derive", field: "extraSleep", factor: 1/25, scale: 5 },
+                    always: { target: "none", cond: { type: "noSleep", below: 15 } }
+                },
+                none: {
+                    entry: assign({ extraSleep: undefined })
+                }
+            }
+        }
     }
 },
 {
     actions: {
         derive: assign(
-            ({ cowCount }, _event, { action: { factor, field } }) => 
-                ({ [field]: Math.floor(cowCount * factor) })
+            ({ cowCount }, _event, { action: { factor, field, scale = 1 } }) => 
+                ({ [field]: Math.floor(cowCount * factor) * scale })
         )
     },
     guards: {
         cowCount({ cowCount }, _e, { cond: { min = 10, max = 1000 }}) {
             return (cowCount >= min) && (cowCount <= max);
         },
-        noMovies({ extraMovies }) { return extraMovies <= 0; }
+        noMovies({ extraMovies }) { return extraMovies <= 0; },
+        noSleep({ extraSleep }, _e, { cond: { below } }) { return extraSleep < below; }
     }
 });
 
@@ -101,7 +118,7 @@ export default function BenefitCalculator() {
         <ul className="ellipsis">
             <ExtraCows state={state}/>
             <ExtraMovies state={state}/>
-            <ExtraSleep cows={cowCount} />
+            <ExtraSleep state={state} />
         </ul>
         <style jsx>{`
             aside { column-break-inside: avoid }
@@ -123,12 +140,11 @@ function ExtraMovies({state: { context: { extraMovies: count }, value: { ExtraMo
             </li>;
 }
 
-function ExtraSleep({cows}) {
-    const minutes = useMemo(() => Math.floor(cows * 0.04) * 5, [cows])
+function ExtraSleep({state: { context: { extraSleep: duration }, value: { ExtraSleep: timeframe } }}) {
     const { ExtraSleep: keys } = useTranslation(translations);
 
-    return <li hidden={minutes < 15}>
-                <Translate keys={keys} mapping={{minutes}}/>
+    return  <li hidden={timeframe === "none"}>
+                <Translate keys={keys} mapping={{ timeframe, duration }}/>
             </li>
 }
 

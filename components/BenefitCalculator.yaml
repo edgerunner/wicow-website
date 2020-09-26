@@ -46,8 +46,11 @@ en:
   ExtraSleep:
     - sleep
     - em:
-        - var: minutes
-        - more minutes
+        - var: duration
+        - map:
+            timeframe:
+              minutes: more minutes
+              hours: more hours
     - every day
 
 tr:
@@ -88,8 +91,11 @@ tr:
   ExtraSleep:
     - her gün
     - em:
-        - var: minutes
-        - dakika daha
+        - var: duration
+        - map:
+            timeframe:
+              hours: saat daha
+              minutes: dakika daha
     - uyuyabilirsin
 
 de:
@@ -135,6 +141,9 @@ de:
     - jeden Tag
     - em:
         - weitere
-        - var: minutes
-        - Minuten
+        - var: duration
+        - map:
+            timeframe:
+              minutes: Minuten
+              hours: Stunden
     - schlafen
