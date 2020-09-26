@@ -100,7 +100,7 @@ export default function BenefitCalculator() {
         </p>
         <ul className="ellipsis">
             <ExtraCows state={state}/>
-            <ExtraMovies cows={cowCount}/>
+            <ExtraMovies state={state}/>
             <ExtraSleep cows={cowCount} />
         </ul>
         <style jsx>{`
@@ -115,24 +115,11 @@ function ExtraCows({state: { context: { extraCows }, value: { ExtraCows: current
     return <li><Translate keys={keys[current]} mapping={{ extraCows }}/></li>;
 }
 
-function ExtraMovies({cows}) {
+function ExtraMovies({state: { context: { extraMovies: count }, value: { ExtraMovies: timeframe } }}) {
     const { ExtraMovies: keys } = useTranslation(translations);
 
-    const count = useMemo(() => ({
-                month: Math.floor(cows / 25),
-                week: Math.floor(cows / 100),
-                day: Math.floor(cows / 700),
-            }), [cows]);
-
-    const timeframe = useMemo(() => 
-        (!!count.day && "day") || (!!count.week && "week") || "month", 
-        [count]);
-
-    return  <li hidden={!count.month}>
-                <Translate keys={keys} mapping={{
-                    timeframe, 
-                    count: count[timeframe]
-                    }}/>
+    return  <li hidden={timeframe === "none"}>
+                <Translate keys={keys} mapping={{ timeframe, count }}/>
             </li>;
 }
 
