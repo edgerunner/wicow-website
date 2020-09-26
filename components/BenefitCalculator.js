@@ -1,4 +1,4 @@
-import React, { useMemo, useCallback } from 'react';
+import React, { useCallback } from 'react';
 import { Machine, assign } from "xstate";
 import { useMachine } from '@xstate/react';
 import CowCount from './CowCount';
@@ -6,7 +6,7 @@ import { useTranslation, Translate } from '../hooks';
 import translations from './BenefitCalculator.yaml';
 
 const machine = Machine({
-    id: "benefits",
+    id: "BenefitCalculator",
     context: {
         cowCount: 100
     },
@@ -15,12 +15,13 @@ const machine = Machine({
         CowCount: {
             on: {
                 UPDATE_COW_COUNT: { 
-                    actions: assign({ cowCount: (context, event) => event.count })
+                    actions: assign({ cowCount: (_c, event) => event.count })
                 }
             },
         },
         ExtraCows: {
             initial: "unknown",
+            on: { UPDATE_COW_COUNT: "ExtraCows" },
             states: {
                 unknown: {
                     always: [
@@ -41,7 +42,6 @@ const machine = Machine({
                     entry: { type: "derive", field: "extraCows", cows: 5 }
                 }
             },
-            on: { UPDATE_COW_COUNT: { target: ".unknown", internal: true } }
         },
         ExtraMovies: {
             initial: "day",
@@ -86,7 +86,7 @@ const machine = Machine({
 {
     actions: {
         derive: assign(
-            ({ cowCount }, _event, { action: { cows, field, step = 1 } }) => 
+            ({ cowCount }, _e, { action: { cows, field, step = 1 } }) => 
                 ({ [field]: Math.floor(cowCount / (cows * step)) * step })
         )
     },
