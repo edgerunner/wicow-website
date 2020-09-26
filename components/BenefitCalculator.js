@@ -127,9 +127,9 @@ export default function BenefitCalculator() {
     </aside>
 }
 
-function ExtraCows({state: { context: { extraCows }, value: { ExtraCows: current } }}) {
+function ExtraCows({state: { context: { extraCows }, value: { ExtraCows: work } }}) {
     const { ExtraCows: keys } = useTranslation(translations);
-    return <li><Translate keys={keys[current]} mapping={{ extraCows }}/></li>;
+    return <li><Translate keys={keys} mapping={{ extraCows, work }}/></li>;
 }
 
 function ExtraMovies({state: { context: { extraMovies: count }, value: { ExtraMovies: timeframe } }}) {

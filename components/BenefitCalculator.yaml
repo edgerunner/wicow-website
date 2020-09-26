@@ -7,22 +7,18 @@ en:
         - cows
     - and a wiCow setup, you could…
   ExtraCows:
-    personal:
-      - keep
-      - em:
-          - var: extraCows
-          - more
-          - pluralize:
-              count: extraCows
-              singular: cow
-              plural: cows
-      - for the same amount of work
-    team:
-      - keep
-      - em:
-          - var: extraCows
-          - more cows
-      - with the same workforce
+    - keep
+    - em:
+        - var: extraCows
+        - more
+        - pluralize:
+            count: extraCows
+            singular: cow
+            plural: cows
+    - map:
+        work:
+          personal: for the same amount of work
+          team: with the same size team
 
   ExtraMovies:
     - watch
@@ -61,13 +57,13 @@ tr:
         - inek
     - ve bir wiCow sistemiyle…
   ExtraCows:
-    - aynı çabayla
+    - map:
+        work:
+          personal: aynı çabayla
+          team: aynı ekiple
     - em:
         - var: extraCows
-        - pluralize:
-            count: extraCows
-            singular: inek
-            plural: inek
+        - inek
     - daha besleyebilirsin
 
   ExtraMovies:
@@ -115,7 +111,11 @@ de:
             count: extraCows
             singular: Kuh
             plural: Kühe
-    - für den gleichen Arbeitsaufwand halten
+    - für den gleichen
+    - map:
+        work:
+          personal: Arbeitsaufwand halten
+          team: Anstrengung können
 
   ExtraMovies:
     - map:
