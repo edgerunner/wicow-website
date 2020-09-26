@@ -43,7 +43,27 @@ const machine = Machine({
             },
             on: { UPDATE_COW_COUNT: { target: ".unknown", internal: true } }
         },
-        ExtraMovies: {},
+        ExtraMovies: {
+            initial: "day",
+            on: { UPDATE_COW_COUNT: "ExtraMovies" },
+            states: {
+                day: {
+                    entry: { type: "derive", field: "extraMovies", factor: 1/700 },
+                    always: { target: "week", cond: "noMovies" }
+                },
+                week: {
+                    entry: { type: "derive", field: "extraMovies", factor: 1/100 },
+                    always: { target: "month", cond: "noMovies" }
+                },
+                month: {
+                    entry: { type: "derive", field: "extraMovies", factor: 1/25 },
+                    always: { target: "none", cond: "noMovies" }
+                },
+                none: {
+                    entry: assign({ extraMovies: undefined })
+                },
+            },
+        },
         ExtraSleep: {}
     }
 },
@@ -57,7 +77,8 @@ const machine = Machine({
     guards: {
         cowCount({ cowCount }, _e, { cond: { min = 10, max = 1000 }}) {
             return (cowCount >= min) && (cowCount <= max);
-        }
+        },
+        noMovies({ extraMovies }) { return extraMovies <= 0; }
     }
 });
 
