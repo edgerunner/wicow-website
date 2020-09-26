@@ -35,10 +35,10 @@ const machine = Machine({
                     ]
                 },
                 personal: {
-                    entry: { type: "derive", field: "extraCows", factor: 0.15 }
+                    entry: { type: "derive", field: "extraCows", cows: 8 }
                 },
                 team: {
-                    entry: { type: "derive", field: "extraCows", factor: 0.20 }
+                    entry: { type: "derive", field: "extraCows", cows: 5 }
                 }
             },
             on: { UPDATE_COW_COUNT: { target: ".unknown", internal: true } }
@@ -48,15 +48,15 @@ const machine = Machine({
             on: { UPDATE_COW_COUNT: "ExtraMovies" },
             states: {
                 day: {
-                    entry: { type: "derive", field: "extraMovies", factor: 1/700 },
+                    entry: { type: "derive", field: "extraMovies", cows: 700 },
                     always: { target: "week", cond: "noMovies" }
                 },
                 week: {
-                    entry: { type: "derive", field: "extraMovies", factor: 1/100 },
+                    entry: { type: "derive", field: "extraMovies", cows: 100 },
                     always: { target: "month", cond: "noMovies" }
                 },
                 month: {
-                    entry: { type: "derive", field: "extraMovies", factor: 1/25 },
+                    entry: { type: "derive", field: "extraMovies", cows: 25 },
                     always: { target: "none", cond: "noMovies" }
                 },
                 none: {
@@ -69,12 +69,12 @@ const machine = Machine({
             on: { UPDATE_COW_COUNT: "ExtraSleep" },
             states: {
                 hours: {
-                    entry: { type: "derive", field: "extraSleep", factor: 1/150, scale: 1/2 },
+                    entry: { type: "derive", field: "extraSleep", cows: 300, step: 1/2 },
                     always: { target: "minutes", cond: { type: "noSleep", below: 1 } }
                 },
                 minutes: {
-                    entry: { type: "derive", field: "extraSleep", factor: 1/25, scale: 5 },
-                    always: { target: "none", cond: { type: "noSleep", below: 15 } }
+                    entry: { type: "derive", field: "extraSleep", cows: 5, step: 5 },
+                    always: { target: "none", cond: { type: "noSleep", below: 10 } }
                 },
                 none: {
                     entry: assign({ extraSleep: undefined })
@@ -86,8 +86,8 @@ const machine = Machine({
 {
     actions: {
         derive: assign(
-            ({ cowCount }, _event, { action: { factor, field, scale = 1 } }) => 
-                ({ [field]: Math.floor(cowCount * factor) * scale })
+            ({ cowCount }, _event, { action: { cows, field, step = 1 } }) => 
+                ({ [field]: Math.floor(cowCount / (cows * step)) * step })
         )
     },
     guards: {
