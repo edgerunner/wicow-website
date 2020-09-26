@@ -10,36 +10,50 @@ const machine = Machine({
     context: {
         cowCount: 100
     },
-    on: {
-        UPDATE_COW_COUNT: { 
-            actions: assign({ cowCount: (context, event) => event.count }),
-            internal: true
-        }
-    },
     type: "parallel",
     states: {
+        CowCount: {
+            on: {
+                UPDATE_COW_COUNT: { 
+                    actions: assign({ cowCount: (context, event) => event.count })
+                }
+            },
+        },
         ExtraCows: {
-            initial: "personal",
+            initial: "unknown",
             states: {
+                unknown: {
+                    always: [
+                        { 
+                            cond: { type: "cowCount", min: 201 }, 
+                            target: "team" 
+                        },
+                        { 
+                            cond: { type: "cowCount", max: 200 }, 
+                            target: "personal" 
+                        }
+                    ]
+                },
                 personal: {
-                    always: { 
-                        cond: { type: "cowCount", min: 201 }, 
-                        target: "team" 
-                    }
+                    entry: { type: "derive", field: "extraCows", factor: 0.15 }
                 },
                 team: {
-                    always: { 
-                        cond: { type: "cowCount", max: 200 }, 
-                        target: "personal" 
-                    }
+                    entry: { type: "derive", field: "extraCows", factor: 0.20 }
                 }
-            }
+            },
+            on: { UPDATE_COW_COUNT: { target: ".unknown", internal: true } }
         },
         ExtraMovies: {},
         ExtraSleep: {}
     }
 },
 {
+    actions: {
+        derive: assign(
+            ({ cowCount }, _event, { action: { factor, field } }) => 
+                ({ [field]: Math.floor(cowCount * factor) })
+        )
+    },
     guards: {
         cowCount({ cowCount }, _e, { cond: { min = 10, max = 1000 }}) {
             return (cowCount >= min) && (cowCount <= max);
