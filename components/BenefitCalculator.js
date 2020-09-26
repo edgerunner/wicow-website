@@ -64,9 +64,10 @@ const machine = Machine({
  
 
 export default function BenefitCalculator() {
-    const [ { context: { cowCount }}, send ] = useMachine(machine, { devTools: true });
+    const [ state, send ] = useMachine(machine, { devTools: true });
     const { label, intro } = useTranslation(translations);
 
+    const { cowCount } = state.context; 
     const UPDATE_COW_COUNT = useCallback((count) => { send({ type: "UPDATE_COW_COUNT", count }) }, []);
 
     return <aside>
@@ -77,7 +78,7 @@ export default function BenefitCalculator() {
             <Translate keys={intro} mapping={{cowCount}}/>
         </p>
         <ul className="ellipsis">
-            <ExtraCows cows={cowCount}/>
+            <ExtraCows state={state}/>
             <ExtraMovies cows={cowCount}/>
             <ExtraSleep cows={cowCount} />
         </ul>
@@ -88,10 +89,9 @@ export default function BenefitCalculator() {
     </aside>
 }
 
-function ExtraCows({cows}) {
-    const extraCows = useMemo(() => Math.floor(cows * 0.15), [cows])
+function ExtraCows({state: { context: { extraCows }, value: { ExtraCows: current } }}) {
     const { ExtraCows: keys } = useTranslation(translations);
-    return <li><Translate keys={keys} mapping={{ extraCows }}/></li>;
+    return <li><Translate keys={keys[current]} mapping={{ extraCows }}/></li>;
 }
 
 function ExtraMovies({cows}) {

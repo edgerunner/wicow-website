@@ -1,132 +1,140 @@
 en:
-    label: How many dairy cows do you have?
-    intro:
-        - With
-        - em:
-              - var: cowCount
-              - cows
-        - and a wiCow setup, you could…
-    ExtraCows:
-        - keep
-        - em:
-              - var: extraCows
-              - more
-              - pluralize:
-                    count: extraCows
-                    singular: cow
-                    plural: cows
-        - for the same amount of work
-    ExtraMovies:
-        - watch
-        - em:
-              - map:
-                    count:
-                        1: a
-                        2: two
-                        3: three
-                        4: four
-                        5: five
-                        6: six
-              - pluralize:
-                    singular: movie
-                    plural: movies
+  label: How many dairy cows do you have?
+  intro:
+    - With
+    - em:
+        - var: cowCount
+        - cows
+    - and a wiCow setup, you could…
+  ExtraCows:
+    personal:
+      - keep
+      - em:
+          - var: extraCows
+          - more
+          - pluralize:
+              count: extraCows
+              singular: cow
+              plural: cows
+      - for the same amount of work
+    team:
+      - keep
+      - em:
+          - var: extraCows
+          - more cows
+      - with the same workforce
+
+  ExtraMovies:
+    - watch
+    - em:
         - map:
-              timeframe:
-                  day: every day
-                  week: every week
-                  month: every month
-    ExtraSleep:
-        - sleep
-        - em:
-              - var: minutes
-              - more minutes
-        - every day
+            count:
+              1: a
+              2: two
+              3: three
+              4: four
+              5: five
+              6: six
+        - pluralize:
+            singular: movie
+            plural: movies
+    - map:
+        timeframe:
+          day: every day
+          week: every week
+          month: every month
+  ExtraSleep:
+    - sleep
+    - em:
+        - var: minutes
+        - more minutes
+    - every day
 
 tr:
-    label: Kaç sağmal ineğin var?
-    intro:
-        - em:
-              - var: cowCount
-              - inek
-        - ve bir wiCow sistemiyle…
-    ExtraCows:
-        - aynı çabayla
-        - em:
-              - var: extraCows
-              - pluralize:
-                    count: extraCows
-                    singular: inek
-                    plural: inek
-        - daha besleyebilirsin
+  label: Kaç sağmal ineğin var?
+  intro:
+    - em:
+        - var: cowCount
+        - inek
+    - ve bir wiCow sistemiyle…
+  ExtraCows:
+    - aynı çabayla
+    - em:
+        - var: extraCows
+        - pluralize:
+            count: extraCows
+            singular: inek
+            plural: inek
+    - daha besleyebilirsin
 
-    ExtraMovies:
+  ExtraMovies:
+    - map:
+        timeframe:
+          day: günde
+          week: haftada
+          month: ayda
+    - em:
         - map:
-              timeframe:
-                  day: günde
-                  week: haftada
-                  month: ayda
-        - em:
-              - map:
-                    count:
-                        1: bir
-                        2: iki
-                        3: üç
-                        4: dört
-                        5: beş
-                        6: altı
-              - film
-        - izleyebilirsin
+            count:
+              1: bir
+              2: iki
+              3: üç
+              4: dört
+              5: beş
+              6: altı
+        - film
+    - izleyebilirsin
 
-    ExtraSleep:
-        - her gün
-        - em:
-              - var: minutes
-              - dakika daha
-        - uyuyabilirsin
+  ExtraSleep:
+    - her gün
+    - em:
+        - var: minutes
+        - dakika daha
+    - uyuyabilirsin
 
 de:
-    label: Wie viele Milchkühe haben Sie?
-    intro:
-        - Mit
-        - em:
-              - var: cowCount
-              - Kühen
-        - und einem wiCow-Setup können Sie…
+  label: Wie viele Milchkühe haben Sie?
+  intro:
+    - Mit
+    - em:
+        - var: cowCount
+        - Kühen
+    - und einem wiCow-Setup können Sie…
 
-    ExtraCows:
-        - em:
-              - var: extraCows
-              - zusätzliche
-              - pluralize:
-                    count: extraCows
-                    singular: Kuh
-                    plural: Kühe
-        - für den gleichen Arbeitsaufwand halten
+  ExtraCows:
+    - em:
+        - var: extraCows
+        - zusätzliche
+        - pluralize:
+            count: extraCows
+            singular: Kuh
+            plural: Kühe
+    - für den gleichen Arbeitsaufwand halten
 
-    ExtraMovies:
+  ExtraMovies:
+    - map:
+        timeframe:
+          day: jeden Tag
+          week: jede Woche
+          month: jeden Monat
+    - em:
         - map:
-              timeframe:
-                  day: jeden Tag
-                  week: jede Woche
-                  month: jeden Monat
-        - em:
-              - map:
-                    count:
-                        1: ein
-                        2: zwei
-                        3: drei
-                        4: vier
-                        5: fünf
-                        6: sechs
-              - pluralize:
-                    singular: Film
-                    plural: Filme
-        - ansehlen
+            count:
+              1: ein
+              2: zwei
+              3: drei
+              4: vier
+              5: fünf
+              6: sechs
+        - pluralize:
+            singular: Film
+            plural: Filme
+    - ansehlen
 
-    ExtraSleep:
-        - jeden Tag
-        - em:
-              - weitere
-              - var: minutes
-              - Minuten
-        - schlafen
+  ExtraSleep:
+    - jeden Tag
+    - em:
+        - weitere
+        - var: minutes
+        - Minuten
+    - schlafen
