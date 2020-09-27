@@ -359,6 +359,45 @@ dd {
         background-position: top left;
     }
 
+    section#no-nonsense {
+        background-repeat: no-repeat;
+        background-position: left calc(10vw - 4rem - 300px) bottom -8rem;
+        min-height: 64rem;
+    }
+
+    #no-nonsense:lang(en) {
+        background-image: image-set(
+            "/images/false-alert.en.1x.png" 1x,
+            "/images/false-alert.en.2x.png" 2x
+        );
+        background-image: image-set(
+            "/images/false-alert.en.1x.webp" 1x,
+            "/images/false-alert.en.2x.webp" 2x
+        );
+    }
+
+    #no-nonsense:lang(de) {
+        background-image: image-set(
+            "/images/false-alert.de.1x.png" 1x,
+            "/images/false-alert.de.2x.png" 2x
+        );
+        background-image: image-set(
+            "/images/false-alert.de.1x.webp" 1x,
+            "/images/false-alert.de.2x.webp" 2x
+        );
+    }
+
+    #no-nonsense:lang(tr) {
+        background-image: image-set(
+            "/images/false-alert.tr.1x.png" 1x,
+            "/images/false-alert.tr.2x.png" 2x
+        );
+        background-image: image-set(
+            "/images/false-alert.tr.1x.webp" 1x,
+            "/images/false-alert.tr.2x.webp" 2x
+        );
+    }
+
     #no-nonsense aside.AlertsSummary {
         grid-column: 1;
         grid-row: 3 / 5;
@@ -504,5 +543,9 @@ dd {
     #no-nonsense aside.AlertsSummary {
         width: calc(25vw - 8rem);
         top: 12rem;
+    }
+
+    section#no-nonsense {
+        background-position: left calc(12vw - 12rem - 300px) bottom -8rem;
     }
 }
