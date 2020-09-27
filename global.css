@@ -359,12 +359,12 @@ dd {
         background-position: top left;
     }
 
-    #no-bullshit aside.AlertsSummary {
+    #no-nonsense aside.AlertsSummary {
         grid-column: 1;
         grid-row: 3 / 5;
     }
 
-     #no-bullshit aside.AlertsSummary dl {
+     #no-nonsense aside.AlertsSummary dl {
          margin: 0;
      }
 }
@@ -453,7 +453,7 @@ dd {
     }
 
     #sit-back-and-relax aside.BenefitCalculator,
-    #no-bullshit aside.AlertsSummary {
+    #no-nonsense aside.AlertsSummary {
         position: absolute;
         left: 0;
         top: 10rem;
@@ -501,7 +501,7 @@ dd {
     }
 
     #sit-back-and-relax aside.BenefitCalculator,
-    #no-bullshit aside.AlertsSummary {
+    #no-nonsense aside.AlertsSummary {
         width: calc(25vw - 8rem);
         top: 12rem;
     }
