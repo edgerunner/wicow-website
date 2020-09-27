@@ -108,44 +108,46 @@ export default function BenefitCalculator() {
     const { cowCount } = state.context; 
     const UPDATE_COW_COUNT = useCallback((count) => { send({ type: "UPDATE_COW_COUNT", count }) }, []);
 
-    return <aside>
+    return <aside className="BenefitCalculator">
         <label htmlFor="benefit-cows">{label}</label>
         <CowCount id="benefit-cows" value={cowCount} onChange={UPDATE_COW_COUNT}/>
 
         <p>
             <Translate keys={intro} mapping={{cowCount}}/>
         </p>
-        <ul className="ellipsis">
+        <dl>
             <ExtraCows state={state}/>
             <ExtraMovies state={state}/>
             <ExtraSleep state={state} />
-        </ul>
-        <style jsx>{`
-            aside { column-break-inside: avoid }
-            ul { min-height: 12rem; }
-        `}</style>
+        </dl>
     </aside>
 }
 
 function ExtraCows({state: { context: { extraCows }, value: { ExtraCows: work } }}) {
     const { ExtraCows: keys } = useTranslation(translations);
-    return <li><Translate keys={keys} mapping={{ extraCows, work }}/></li>;
+    // return <li><Translate keys={keys} mapping={{ extraCows, work }}/></li>;
+    return <>
+        <dt><Translate keys={keys.term} mapping={{ work }}/></dt>
+        <dd><Translate keys={keys.value} mapping={{ extraCows, work }}/></dd>
+    </>;
 }
 
-function ExtraMovies({state: { context: { extraMovies: count }, value: { ExtraMovies: timeframe } }}) {
+function ExtraMovies({state: { context: { extraMovies }, value: { ExtraMovies: timeframe } }}) {
     const { ExtraMovies: keys } = useTranslation(translations);
-
-    return  <li hidden={timeframe === "none"}>
-                <Translate keys={keys} mapping={{ timeframe, count }}/>
-            </li>;
+    if (timeframe === "none") { return null }
+    return <>
+        <dt><Translate keys={keys.term} mapping={{ timeframe }}/></dt>
+        <dd><Translate keys={keys.value} mapping={{ extraMovies, timeframe }}/></dd>
+    </>;
 }
 
-function ExtraSleep({state: { context: { extraSleep: duration }, value: { ExtraSleep: timeframe } }}) {
+function ExtraSleep({state: { context: { extraSleep }, value: { ExtraSleep: timeframe } }}) {
     const { ExtraSleep: keys } = useTranslation(translations);
-
-    return  <li hidden={timeframe === "none"}>
-                <Translate keys={keys} mapping={{ timeframe, duration }}/>
-            </li>
+    if (timeframe === "none") { return null }
+    return <>
+        <dt><Translate keys={keys.term} mapping={{ timeframe }}/></dt>
+        <dd><Translate keys={keys.value} mapping={{ extraSleep, timeframe }}/></dd>
+    </>;
 }
 
 

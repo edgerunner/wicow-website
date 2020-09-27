@@ -1,53 +1,47 @@
 en:
   label: How many dairy cows do you have?
   intro:
-    - With
+    - What's possible with
     - em:
         - var: cowCount
         - cows
-    - and a wiCow setup, you could…
+    - and a wiCow setup?
   ExtraCows:
-    - keep
-    - em:
-        - var: extraCows
-        - more
-        - pluralize:
-            count: extraCows
-            singular: cow
-            plural: cows
-    - map:
+    term:
+      - Cows you can keep with the
+      - em:
+          map:
+            work:
+              personal: same effort
+              team: same size team
+    value:
+      map:
         work:
-          personal: for the same amount of work
-          team: with the same size team
+          personal:
+            var: extraCows
+          team:
+            em:
+              var: extraCows
 
   ExtraMovies:
-    - watch
-    - em:
-        - map:
-            count:
-              1: a
-              2: two
-              3: three
-              4: four
-              5: five
-              6: six
-        - pluralize:
-            singular: movie
-            plural: movies
-    - map:
-        timeframe:
-          day: every day
-          week: every week
-          month: every month
-  ExtraSleep:
-    - sleep
-    - em:
-        - var: duration
-        - map:
+    term:
+      - Movies you can watch
+      - em:
+          map:
             timeframe:
-              minutes: more minutes
-              hours: more hours
-    - every day
+              day: every day
+              week: every week
+              month: every month
+    value:
+      var: extraMovies
+
+  ExtraSleep:
+    term: Extra sleep you can get every day
+    value:
+      map:
+        timeframe:
+          minutes: [var: extraSleep, join: { small: min }]
+          hours: [var: extraSleep, join: { small: h }]
 
 tr:
   label: Kaç sağmal ineğin var?
@@ -55,44 +49,43 @@ tr:
     - em:
         - var: cowCount
         - inek
-    - ve bir wiCow sistemiyle…
+    - ve bir wiCow sistemiyle neler yapılabilir?
   ExtraCows:
-    - map:
+    term:
+      - em:
+          map:
+            work:
+              personal: Aynı çabayla
+              team: Aynı kadroyla
+      - fazladan yetiştirebileceğin inek
+    value:
+      map:
         work:
-          personal: aynı çabayla
-          team: aynı ekiple
-    - em:
-        - var: extraCows
-        - inek
-    - daha besleyebilirsin
+          personal:
+            var: extraCows
+          team:
+            em:
+              var: extraCows
 
   ExtraMovies:
-    - map:
-        timeframe:
-          day: günde
-          week: haftada
-          month: ayda
-    - em:
-        - map:
-            count:
-              1: bir
-              2: iki
-              3: üç
-              4: dört
-              5: beş
-              6: altı
-        - film
-    - izleyebilirsin
+    term:
+      - em:
+          map:
+            timeframe:
+              day: Her gün
+              week: Her hafta
+              month: Her ay
+      - izleyebileceğin film
+    value:
+      var: extraMovies
 
   ExtraSleep:
-    - her gün
-    - em:
-        - var: duration
-        - map:
-            timeframe:
-              hours: saat daha
-              minutes: dakika daha
-    - uyuyabilirsin
+    term: Her gün fazladan uyuyabileceğin süre
+    value:
+      map:
+        timeframe:
+          minutes: [var: extraSleep, join: { small: dk }]
+          hours: [var: extraSleep, join: { small: sa }]
 
 de:
   label: Wie viele Milchkühe haben Sie?
@@ -104,46 +97,39 @@ de:
     - und einem wiCow-Setup können Sie…
 
   ExtraCows:
-    - em:
-        - var: extraCows
-        - zusätzliche
-        - pluralize:
-            count: extraCows
-            singular: Kuh
-            plural: Kühe
-    - für den gleichen
-    - map:
+    term:
+      - Kühe können Sie mit der gleichen
+      - em:
+          map:
+            work:
+              personal: Anstrengung halten
+              team: Team halten
+    value:
+      map:
         work:
-          personal: Arbeitsaufwand halten
-          team: Anstrengung können
+          personal:
+            var: extraCows
+          team:
+            em:
+              var: extraCows
 
   ExtraMovies:
-    - map:
-        timeframe:
-          day: jeden Tag
-          week: jede Woche
-          month: jeden Monat
-    - em:
-        - map:
-            count:
-              1: ein
-              2: zwei
-              3: drei
-              4: vier
-              5: fünf
-              6: sechs
-        - pluralize:
-            singular: Film
-            plural: Filme
-    - ansehlen
+    term:
+      - Filme, die Sie
+      - em:
+          map:
+            timeframe:
+              day: jeden Tag
+              week: jede Woche
+              month: jeden Monat
+      - sehen können
+    value:
+      var: extraMovies
 
   ExtraSleep:
-    - jeden Tag
-    - em:
-        - weitere
-        - var: duration
-        - map:
-            timeframe:
-              minutes: Minuten
-              hours: Stunden
-    - schlafen
+    term: Zusätzlichen Schlaf können Sie jeden Tag bekommen
+    value:
+      map:
+        timeframe:
+          minutes: [var: extraSleep, join: { small: Min }]
+          hours: [var: extraSleep, join: { small: Std }]

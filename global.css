@@ -126,12 +126,21 @@ nav.locale a.current {
     color: var(--dark);
 }
 
+small {
+    font: inherit;
+    font-weight: 300;
+}
+
 join {
     margin: 0 -0.4ch;
     break-after: avoid;
     break-before: avoid;
     line-break: strict;
     word-break: keep-all;
+}
+
+join:last-child {
+    margin-inline-end: 0;
 }
 
 form {
@@ -248,20 +257,20 @@ input:-webkit-autofill:active {
     z-index: -1;
 }
 
-.AlertsSummary dl {
+dl {
     display: grid;
-    grid-template-columns: min-content auto;
+    grid-template-columns: auto auto;
     grid-gap: 1rem;
     grid-auto-flow: row dense;
 }
 
-.AlertsSummary dt {
+dt {
     grid-column: 2;
     font-weight: 300;
     max-width: 12em;
 }
 
-.AlertsSummary dd {
+dd {
     margin: unset;
     grid-column: 1;
     text-align: end;
@@ -443,12 +452,14 @@ input:-webkit-autofill:active {
         background-size: 30vw;
     }
 
+    #sit-back-and-relax aside.BenefitCalculator,
     #no-bullshit aside.AlertsSummary {
         position: absolute;
         left: 0;
         top: 10rem;
         width: calc(40vw - 10rem);
     }
+
 }
 
 @media only screen and (min-width: 96rem) {
@@ -489,6 +500,7 @@ input:-webkit-autofill:active {
         background-position: left center;
     }
 
+    #sit-back-and-relax aside.BenefitCalculator,
     #no-bullshit aside.AlertsSummary {
         width: calc(25vw - 8rem);
         top: 12rem;

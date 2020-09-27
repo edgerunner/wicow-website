@@ -102,6 +102,7 @@ export default function CowCount(props) {
                 align-items: center;
                 justify-content: space-around;
                 z-index: -1;
+                background: var(--dark);
             }
             datalist > option {
                 display: block;
