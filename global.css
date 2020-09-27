@@ -223,7 +223,7 @@ input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
     transition-property: background-color, color;
     transition-duration: 5000s;
-    transition-function: ease-in;
+    transition-timing-function: ease-in;
 }
 
 .avatar img {
