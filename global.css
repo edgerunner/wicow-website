@@ -260,7 +260,7 @@ input:-webkit-autofill:active {
 dl {
     display: grid;
     grid-template-columns: auto auto;
-    grid-gap: 1rem;
+    grid-gap: 2rem 1rem;
     grid-auto-flow: row dense;
 }
 
@@ -274,10 +274,10 @@ dd {
     margin: unset;
     grid-column: 1;
     text-align: end;
-    font-size: 2.5em;
-    line-height: 1;
+    font-size: 3.75em;
+    line-height: 2rem;
     font-weight: 900;
-    font-variant-numeric: proportional-nums;
+    font-variant-numeric: oldstyle-nums;
 }
 
 
