@@ -491,6 +491,7 @@ dd {
         background-size: 30vw;
     }
 
+    #horsemouth aside.QuestionForm,
     #sit-back-and-relax aside.BenefitCalculator,
     #no-nonsense aside.AlertsSummary {
         position: absolute;
@@ -539,6 +540,7 @@ dd {
         background-position: left center;
     }
 
+    #horsemouth aside.QuestionForm,
     #sit-back-and-relax aside.BenefitCalculator,
     #no-nonsense aside.AlertsSummary {
         width: calc(25vw - 8rem);
