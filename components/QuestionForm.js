@@ -1,4 +1,4 @@
-import { Machine, assign, forwardTo } from "xstate";
+import { Machine, assign } from "xstate";
 import { useMachine } from "@xstate/react";
 import "./xStateInspector";
 import { useEffect } from "react";
@@ -7,10 +7,9 @@ import translations from './QuestionForm.yaml';
 
 const agentMachine = Machine({
     id: "Agent",
-    initial: "idle",
+    initial: "pending",
     context: {},
     states: {
-        idle: {},
         pending: {
             invoke: {
                 id: "get-agent",
@@ -33,13 +32,6 @@ const agentMachine = Machine({
             type: "final",
             data: { agent: ({ agent }) => agent }
         },
-    },
-    on: {
-        SET_LANGUAGE: {
-            actions: assign({ language: (context, event) => event.language }),
-            target: "#Agent.pending",
-            internal: false
-        }
     }
 }, {
     services: {
@@ -120,16 +112,9 @@ const questionMachine = Machine({
     invoke: {
         id: "agent",
         src: "agentMachine",
+        data: { language: context => context.language },
         onDone: { actions: assign({ agent: (context, event) => event.data.agent }) }
-    },
-    on: { 
-        SET_LANGUAGE: { 
-            actions: [
-                assign({ language: (context, event) => event.language }),
-                forwardTo("agent")
-            ]
-        }
-    } 
+    }
 }, {
     actions: {
         logError({error}) { console.error("Error submitting question: ", error) }
@@ -160,7 +145,9 @@ const questionMachine = Machine({
 
 
 export default function QuestionForm() {
-    const [state, send] = useMachine(questionMachine, { devTools: true });
+    const t = useTranslation(translations);
+
+    const [state, send] = useMachine(questionMachine, { devTools: true, context: { language: t.language } });
 
     function update(event) {
         send({
@@ -182,12 +169,6 @@ export default function QuestionForm() {
         .map(id => document.getElementById(`question-${id}`))
         .map(element => { element.value = `${element.value}`})
     });
-
-    const t = useTranslation(translations);
-
-    useEffect(() => { 
-        send({ type: "SET_LANGUAGE", language: t.language }); }, 
-        [t.language]);
 
     function WithAgent({t}) {
         return state.context.agent
