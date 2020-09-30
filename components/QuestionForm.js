@@ -1,110 +1,135 @@
-import { Machine, assign } from "xstate";
+import { Machine, assign, forwardTo } from "xstate";
 import { useMachine } from "@xstate/react";
 import "./xStateInspector";
 import { useEffect } from "react";
 import {useTranslation, Translate} from '../hooks';
-import translations from './QuestionForm.yaml';
+import translations from './QuestionForm.yaml'; 
 
-const machine = Machine({
-    id: "root",
-    type: "parallel",
+const agentMachine = Machine({
+    id: "Agent",
+    initial: "idle",
+    context: {},
+    states: {
+        idle: {},
+        pending: {
+            invoke: {
+                id: "get-agent",
+                src: "getAgent",
+                onDone: {
+                    target: "selected",
+                    actions: assign({ agent: (context, event) => event.data })
+                },
+                onError: { 
+                    target: "error",
+                    actions: (context, event) => { console.error(event) }
+                }
+            },
+            after: { 15000: "pending" }
+        },
+        error: {
+            after: { 5000: "pending" }
+        },
+        selected: {
+            type: "final",
+            data: { agent: ({ agent }) => agent }
+        },
+    },
+    on: {
+        SET_LANGUAGE: {
+            actions: assign({ language: (context, event) => event.language }),
+            target: "#Agent.pending",
+            internal: false
+        }
+    }
+}, {
+    services: {
+        async getAgent(context) {
+            const response = await fetch(`/api/agent?language=${context.language}`);
+            return response.ok ? response.json() : Promise.reject(response.status);
+        }
+    }
+});
+
+const questionMachine = Machine({
+    id: "QuestionForm",
     context: {
         name: "",
         email: "",
         question: ""
     },
+    initial: "form",
     states: {
-        question: {
-            id: "question",
-            initial: "form",
+        form: {
+            initial: "halfway",
             states: {
-                form: {
-                    initial: "halfway",
-                    states: {
-                        blank: {}, 
-                        halfway: {
-                            always : [
-                                { cond: "valid", target: "ready" },
-                                { cond: "empty", target: "blank" },
-                            ],
-                        },
-                        ready: {
-                            on: { SUBMIT: "#question.submission" }
-                        },
-                        invalid: {
-                            after: { 5000: "halfway" }
-                        }
-                    },
-                    on: {
-                        UPDATE: {
-                            target: ".halfway",
-                            internal: true,
-                            actions: assign((context, event) => 
-                            ({...context, [event.field]: event.value })),
-                        },
-                        SUBMIT: ".invalid"
-                    },
-                }, 
-                submission: {
-                    initial: "pending",
-                    states: {
-                        pending: {
-                            invoke: {
-                                id: "post-question",
-                                src: "postQuestion",
-                                onDone: "done",
-                                onError: {
-                                    target: "error",
-                                    actions: assign({ error: (context, event) => event })
-                                }
-                            },
-                            after: { 15000: "error" }
-                        },
-                        done: {
-                            on: { 
-                                ANOTHER: {
-                                    target: "#question.form",
-                                    actions: assign({ name: "", email: "", question: "" })
-                                }
-                            }
-                        },
-                        error: {
-                            entry: "logError",
-                            exit: assign({ error: undefined }),
-                            on: { RETRY: "#question.form" }
-                        }
-                    }
+                blank: {}, 
+                halfway: {
+                    always : [
+                        { cond: "valid", target: "ready" },
+                        { cond: "empty", target: "blank" },
+                    ],
+                },
+                ready: {
+                    on: { SUBMIT: "#QuestionForm.submission" }
+                },
+                invalid: {
+                    after: { 5000: "halfway" }
                 }
-            }
-        },
-        agent: {
-            id: "agent",
-            initial: "unknown",
+            },
+            on: {
+                UPDATE: {
+                    target: ".halfway",
+                    internal: true,
+                    actions: assign((context, event) => 
+                    ({...context, [event.field]: event.value })),
+                },
+                SUBMIT: ".invalid"
+            },
+        }, 
+        submission: {
+            initial: "pending",
             states: {
-                unknown: {},
                 pending: {
                     invoke: {
-                        id: "get-agent",
-                        src: "getAgent",
-                        onDone: {
-                            target: "selected",
-                            actions: assign({ agent: (context, event) => event.data })
-                        },
-                        onError: "unknown" 
+                        id: "post-question",
+                        src: "postQuestion",
+                        onDone: "done",
+                        onError: {
+                            target: "error",
+                            actions: assign({ error: (context, event) => event })
+                        }
                     },
-                    after: { 15000: "unknown" },
-                    on: { SET_LANGUAGE: undefined }
+                    after: { 15000: "error" }
                 },
-                selected: {},
-            },
-            on: { 
-                SET_LANGUAGE: { 
-                    target: ".pending",
-                    actions: assign({ language: (context, event) => event.language })
+                done: {
+                    on: { 
+                        ANOTHER: {
+                            target: "#QuestionForm.form",
+                            actions: assign({ name: "", email: "", question: "" })
+                        }
+                    }
+                },
+                error: {
+                    entry: "logError",
+                    exit: assign({ error: undefined }),
+                    on: { RETRY: "#QuestionForm.form" }
                 }
-            } 
+            }
         }
-    }
+    },
+    invoke: {
+        id: "agent",
+        src: "agentMachine",
+        onDone: { actions: assign({ agent: (context, event) => event.data.agent }) }
+    },
+    on: { 
+        SET_LANGUAGE: { 
+            actions: [
+                assign({ language: (context, event) => event.language }),
+                forwardTo("agent")
+            ]
+        }
+    } 
 }, {
     actions: {
         logError({error}) { console.error("Error submitting question: ", error) }
@@ -128,15 +153,14 @@ const machine = Machine({
             });
             return response.ok ? response.status : Promise.reject(response.status);
         },
-        async getAgent(context) {
-            const response = await fetch(`/api/agent?language=${context.language}`);
-            return response.ok ? response.json() : Promise.reject(response.status);
-        }
+        agentMachine
     }
 });
 
+
+
 export default function QuestionForm() {
-    const [state, send] = useMachine(machine, { devTools: true });
+    const [state, send] = useMachine(questionMachine, { devTools: true });
 
     function update(event) {
         send({
@@ -166,13 +190,13 @@ export default function QuestionForm() {
         [t.language]);
 
     function WithAgent({t}) {
-        return state.matches("agent.selected")
+        return state.context.agent
             ? <>
                 <Translate keys={t.agent}
                     mapping={{agentName: state.context.agent.name}}/>
                 <picture className="avatar">
                     <source type="image/webp" 
-                        srcset={`/avatars/${state.context.agent.id}.webp`}/>
+                        srcSet={`/avatars/${state.context.agent.id}.webp`}/>
                     <img src={`/avatars/${state.context.agent.id}.jpg`}/>
                 </picture>
               </>
@@ -185,39 +209,39 @@ export default function QuestionForm() {
             <input id="question-name" name="name"
                 type="text" autoComplete="name" 
                 placeholder={t.name.placeholder}
-                disabled={!state.matches("question.form")}
+                disabled={!state.matches("form")}
                 value={state.context.name} onChange={update}
                 />
 
             <label htmlFor="question-email">{t.email.label}</label>
             <input id="question-email" type="email" name="email"
                 placeholder={t.email.placeholder} 
-                disabled={!state.matches("question.form")}
+                disabled={!state.matches("form")}
                 value={state.context.email} onChange={update}
                 />
 
             <label htmlFor="question-question">{t.question.label}</label>
             <textarea id="question-question" name="question" 
                 placeholder={t.question.placeholder} onChange={update}
-                disabled={!state.matches("question.form")}
+                disabled={!state.matches("form")}
                 value={state.context.question} />
             
             
 
-            { state.matches("question.form.invalid")
+            { state.matches("form.invalid")
             ? <button id="question-ask" disabled>{t.button.invalid}</button>
-            : state.matches("question.form") 
+            : state.matches("form") 
             ? <button id="question-ask" type="submit">
                 <WithAgent t={t.button.submit} />
               </button>
-            : state.matches("question.submission.error")
+            : state.matches("submission.error")
             ? <>
                 <label htmlFor="question-ask" className="problem">
                     {t.button.error.label}
                 </label>
                 <button id="question-ask" onClick={()=>send("RETRY")}>{t.button.error.text}</button>
               </>
-            : state.matches("question.submission.done")
+            : state.matches("submission.done")
             ? <>
                 <label htmlFor="question-ask">
                     <WithAgent t={t.button.done.label} />
@@ -226,7 +250,7 @@ export default function QuestionForm() {
                     {t.button.done.text}
                 </button>
               </>
-            : state.matches("question.submission.pending")
+            : state.matches("submission.pending")
             ? <button id="question-ask" disabled>
                 <WithAgent t={t.button.pending} />
               </button>
