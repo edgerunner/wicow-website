@@ -4,6 +4,7 @@ import "./xStateInspector";
 import { useEffect } from "react";
 import {useTranslation, Translate} from '../hooks';
 import translations from './QuestionForm.yaml'; 
+import { Match, State } from "./Match";
 
 const agentMachine = Machine({
     id: "Agent",
@@ -206,37 +207,36 @@ export default function QuestionForm() {
                 placeholder={t.question.placeholder} onChange={update}
                 disabled={!state.matches("form")}
                 value={state.context.question} />
-            
-            
 
-            { state.matches("form.invalid")
-            ? <button id="question-ask" disabled>{t.button.invalid}</button>
-            : state.matches("form") 
-            ? <button id="question-ask" type="submit">
-                <WithAgent t={t.button.submit} />
-              </button>
-            : state.matches("submission.error")
-            ? <>
-                <label htmlFor="question-ask" className="problem">
-                    {t.button.error.label}
-                </label>
-                <button id="question-ask" onClick={()=>send("RETRY")}>{t.button.error.text}</button>
-              </>
-            : state.matches("submission.done")
-            ? <>
-                <label htmlFor="question-ask">
-                    <WithAgent t={t.button.done.label} />
-                </label>
-                <button id="question-ask" onClick={()=>send("ANOTHER")}>
-                    {t.button.done.text}
-                </button>
-              </>
-            : state.matches("submission.pending")
-            ? <button id="question-ask" disabled>
-                <WithAgent t={t.button.pending} />
-              </button>
-            : null
-            }
+            <Match state={state}>
+                <State match="form.invalid">
+                    <button id="question-ask" disabled>{t.button.invalid}</button>
+                </State>
+                <State match="form">
+                    <button id="question-ask" type="submit">
+                        <WithAgent t={t.button.submit} />
+                    </button>
+                </State>
+                <State match="submission.error">
+                    <label htmlFor="question-ask" className="problem">
+                        {t.button.error.label}
+                    </label>
+                    <button id="question-ask" onClick={()=>send("RETRY")}>{t.button.error.text}</button>
+                </State>
+                <State match="submission.done">
+                    <label htmlFor="question-ask">
+                        <WithAgent t={t.button.done.label} />
+                    </label>
+                    <button id="question-ask" onClick={()=>send("ANOTHER")}>
+                        {t.button.done.text}
+                    </button>
+                </State>
+                <State match="submission.pending">
+                    <button id="question-ask" disabled>
+                        <WithAgent t={t.button.pending} />
+                    </button>
+                </State>
+            </Match>
         </form>
     </aside>
 }
