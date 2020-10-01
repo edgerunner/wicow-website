@@ -59,9 +59,6 @@ h1 {
     line-height: 4rem;
     margin: 2rem 0;
     letter-spacing: -0.1ch;
-}
-
-h1:lang(de) {
     hyphens: auto;
 }
 
@@ -364,13 +361,8 @@ dd {
         content: "";
         grid-column: 1;
         grid-row: 5 / 7;
-        background-size: 300%;
-        background-position: center top 30%;
-        border-image: url(/assets/border-sawtooth.svg) 8 / 1 / .1 round;
-        border-width: 1em;
-        border-image-repeat: round;
-        border-style: solid none;
-        box-sizing: border-box;
+        background-size: auto 150%;
+        background-position: center;
     }
 
     #no-nonsense:lang(en)::after {
