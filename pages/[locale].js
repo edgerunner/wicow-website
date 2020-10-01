@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import { useLocale } from '../hooks';
-import { KnowYourCows, SitBackAndRelax, Simple, NoNonsense, Horsemouth } from '../sections';
+import Sections from '../sections';
 
 const locales = [ "en", "de", "tr" ];
 
@@ -30,21 +30,7 @@ export default function Home() {
   )
 }
 
-function Sections() {
-  const locale = useLocale();
-  return [ 
-    KnowYourCows,
-    SitBackAndRelax,
-    Simple,
-    NoNonsense,
-    Horsemouth
-  ].map(
-    (section, index) => {
-      const Section = section[locale];
-      return <Section key={index} id={section.id}/>
-    }
-  );  
-}
+
 
 function LocaleNav() {
   const names = {
