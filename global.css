@@ -359,13 +359,15 @@ dd {
         background-position: top left;
     }
 
-    section#no-nonsense {
-        background-repeat: no-repeat;
-        background-position: left calc(10vw - 4rem - 300px) bottom -8rem;
-        min-height: 64rem;
+    section#no-nonsense::after {
+        content: "";
+        grid-column: 1;
+        grid-row: 5 / 7;
+        background-size: auto 150%;
+        background-position: center;
     }
 
-    #no-nonsense:lang(en) {
+    #no-nonsense:lang(en)::after {
         background-image: image-set(
             "/images/false-alert.en.1x.png" 1x,
             "/images/false-alert.en.2x.png" 2x
@@ -376,7 +378,7 @@ dd {
         );
     }
 
-    #no-nonsense:lang(de) {
+    #no-nonsense:lang(de)::after {
         background-image: image-set(
             "/images/false-alert.de.1x.png" 1x,
             "/images/false-alert.de.2x.png" 2x
@@ -387,7 +389,7 @@ dd {
         );
     }
 
-    #no-nonsense:lang(tr) {
+    #no-nonsense:lang(tr)::after {
         background-image: image-set(
             "/images/false-alert.tr.1x.png" 1x,
             "/images/false-alert.tr.2x.png" 2x
@@ -500,6 +502,14 @@ dd {
         width: calc(40vw - 10rem);
     }
 
+    #no-nonsense::after {
+        position: absolute;
+        height: 35%;
+        width: 30vw;
+        left: 0;
+        bottom: 0;
+    }
+
 }
 
 @media only screen and (min-width: 96rem) {
@@ -547,7 +557,8 @@ dd {
         top: 12rem;
     }
 
-    section#no-nonsense {
-        background-position: left calc(12vw - 12rem - 300px) bottom -8rem;
+    section#no-nonsense::after {
+        width: 20vw;
+        max-width: 20%;
     }
 }
