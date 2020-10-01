@@ -1,0 +1,10 @@
+<svg width="48" height="48" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+    <g class="border-sawtooth" fill="#333">
+        <path d="M16 0H0L8 8L16 0Z" />
+        <path d="M32 0H16L24 8L32 0Z" />
+        <path d="M48 0H32L40 8L48 0Z" />
+        <path d="M32 48L48 48L40 40L32 48Z" />
+        <path d="M16 48L32 48L24 40L16 48Z" />
+        <path d="M0 48L16 48L8 40L0 48Z" />
+    </g>
+</svg>
