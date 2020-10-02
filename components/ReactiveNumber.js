@@ -1,12 +1,9 @@
 import { useReactiveValue } from "../hooks";
 import { Number } from "./Number";
 
-export default function ReactiveNumber({ type, field, fallback }) {
-    const number = useReactiveValue(type, field);
-
-    return <Number value={number} fallback={fallback}/>
+export default {
+    CowCount() {
+        const count = useReactiveValue("UPDATE_COW_COUNT", "count");
+        return <Number value={count} fallback="100"/>;
+    }
 }
-
-ReactiveNumber.CowCount = () => 
-    <ReactiveNumber type="UPDATE_COW_COUNT" field="count" fallback="100"/>;
-
