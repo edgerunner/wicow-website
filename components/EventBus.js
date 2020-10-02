@@ -17,7 +17,8 @@ export default function EventBus({ children }) {
             });
 
             return function unsubscribe() { 
-                update(new Set(subscribers.delete(send))); 
+                subscribers.delete(send);
+                update(new Set(subscribers)); 
             }
         }
     }
