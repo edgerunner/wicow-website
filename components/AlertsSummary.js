@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useReducer } from "react";
-import { useLocale, useTranslation } from "../hooks";
+import { useTranslation } from "../hooks";
 import translations from "./AlertsSummary.yaml";
+import { Number } from "./Number";
 
 const polling_timeout = process.env.NEXT_PUBLIC_FETCH_POLLING_INTERVAL;
 const retry_timeout = process.env.NEXT_PUBLIC_FETCH_RETRY_INTERVAL;
@@ -55,10 +56,4 @@ function reducer(state, action) {
         case "error": return { error: action.error, data: state.data };
         case "start": return { loading: true, error: state.error, data: state.data };
     }
-}
-
-function Number({value, fallback = null}) {
-    if (!value) { return fallback; }
-    const locale = useLocale();
-    return <data value={value}>{value.toLocaleString(locale)}</data>;
 }
