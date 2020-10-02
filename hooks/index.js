@@ -6,3 +6,4 @@ export function useLocale() {
 
 export { useTranslation, Translate } from './useTranslation';
 export { useEventBus } from "../components/EventBus";
+export { useReactiveValue } from "./useReactiveValue";
