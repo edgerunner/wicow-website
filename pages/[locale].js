@@ -2,12 +2,13 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { useLocale } from '../hooks';
 import Sections from '../sections';
+import EventBus from '../components/EventBus';
 
 const locales = [ "en", "de", "tr" ];
 
 export default function Home() {
   return (
-    <>
+    <EventBus>
       <Head>
         <title>wiCow</title>
       </Head>
@@ -26,7 +27,7 @@ export default function Home() {
       <footer>
         
       </footer>
-    </>
+    </EventBus>
   )
 }
 

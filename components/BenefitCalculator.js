@@ -1,7 +1,8 @@
 import React, { useCallback } from 'react';
-import { Machine, assign } from "xstate";
+import { Machine, assign, actions } from "xstate";
 import { useMachine } from '@xstate/react';
 import CowCount from './CowCount';
+import { useEventBus } from './EventBus';
 import { useTranslation, Translate } from '../hooks';
 import translations from './BenefitCalculator.yaml';
 
@@ -11,11 +12,15 @@ const machine = Machine({
         cowCount: 100
     },
     type: "parallel",
+    invoke: { id: "bus", src: "bus" },
     states: {
         CowCount: {
             on: {
                 UPDATE_COW_COUNT: { 
-                    actions: assign({ cowCount: (_c, event) => event.count })
+                    actions: [
+                        assign({ cowCount: (_c, event) => event.count }),
+                        actions.forwardTo("bus")
+                    ]
                 }
             },
         },
@@ -102,7 +107,11 @@ const machine = Machine({
  
 
 export default function BenefitCalculator() {
-    const [ state, send ] = useMachine(machine, { devTools: true });
+    const bus = useEventBus();
+    const [ state, send ] = useMachine(machine, { 
+        devTools: true, 
+        services: { bus }
+    });
     const { label, intro } = useTranslation(translations);
 
     const { cowCount } = state.context; 
