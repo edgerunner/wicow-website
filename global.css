@@ -232,6 +232,7 @@ div.CowCount {
     grid-row: span 2;
     border-radius: .75rem;
     background: var(--dark);
+    font-size: 1rem;
 }
 .CowCount input[type="range"] {
     appearance: none;
