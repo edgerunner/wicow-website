@@ -1,10 +1,11 @@
-import { Machine, assign } from "xstate";
+import { Machine, assign, actions } from "xstate";
 import { useMachine } from "@xstate/react";
 import "./xStateInspector";
-import { useEffect } from "react";
+import { useEffect, useCallback } from "react";
 import {useTranslation, useEventBus} from '../hooks';
 import translations from './OfferRequestForm.yaml'; 
 import { Match, State } from "./Match";
+import CowCount from "./CowCount";
 
 
 const offerRequestMachine = Machine({
@@ -13,7 +14,7 @@ const offerRequestMachine = Machine({
         name: "",
         email: "",
         phone: "",
-        cowCount: null,
+        cowCount: 100,
         postPartumTracking: false
     },
     initial: "form",
@@ -77,6 +78,15 @@ const offerRequestMachine = Machine({
     invoke: { id: "bus", src: "bus" },
     on: {
         UPDATE_COW_COUNT: {
+            actions: [
+                assign({ cowCount: (context, event) => event.count }),
+                actions.send((context, event) => ({
+                    ...event,
+                    type: "UPDATED_COW_COUNT"
+                }),{ to: "bus" })
+            ]
+        },
+        UPDATED_COW_COUNT: {
             actions: assign({ cowCount: (context, event) => event.count })
         }
     }
@@ -136,6 +146,10 @@ export default function OfferRequestForm() {
         .map(element => { element.value = `${element.value}`})
     });
 
+    const { cowCount } = state.context; 
+    const UPDATE_COW_COUNT = useCallback((count) => { send({ type: "UPDATE_COW_COUNT", count }) }, []);
+
+
     return <aside className="OfferRequestForm">
         <form autoComplete="on" onSubmit={submit}>
             <label htmlFor="offer-request-name">{t.name.label}</label>
@@ -159,6 +173,9 @@ export default function OfferRequestForm() {
                 disabled={!state.matches("form")}
                 value={state.context.phone} onChange={update}
                 />
+
+            <label htmlFor="offer-request-cows">{t.cowCount.label}</label>
+            <CowCount id="offer-request-cows" value={cowCount} onChange={UPDATE_COW_COUNT}/>
 
             <Match state={state}>
                 <State match="form.invalid">

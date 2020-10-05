@@ -11,6 +11,9 @@ en:
     label: and my phone number is
     placeholder: "+44-12-345-678"
 
+  cowCount:
+    label: The number of dairy cows in my farm is
+
   button:
     submit: Request an offer
     invalid: Complete the form first
@@ -37,6 +40,9 @@ tr:
     label: ve telefon numaram da
     placeholder: "+90-532-123-4567"
 
+  cowCount:
+    label: Çiftliğimdeki sağmal inek sayısı
+
   button:
     submit: Teklif iste
     invalid: Önce formu doldur
@@ -61,6 +67,9 @@ de:
   phone:
     label: und meine Telefonnummer ist
     placeholder: "+49-12-345-678"
+
+  cowCount:
+    label: Die Anzahl der Milchkühe in meiner Farm ist
 
   button:
     submit: Bitte um ein Angebot

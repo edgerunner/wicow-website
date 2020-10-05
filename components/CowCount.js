@@ -1,33 +1,50 @@
-import React, { useState, useMemo, useEffect } from "react";
+import React, { useMemo, useCallback } from "react";
 
 const values = [10, 20, 50, 100, 200, 500, 1000]
 
+function valueToPosition(value) {
+    const lower = [...values].reverse().find(v => v <= value);
+    const upper = values.find(v => v > value) || lower + 1;
+    const range = upper - lower;
+
+    const offset = value - lower;
+    const delta = offset / range;
+    
+    const floor = values.indexOf(lower);
+    const newPosition = floor + delta;
+
+    return newPosition;
+}
+
+function positionToValue(position) {
+    const floor = Math.floor(position);
+    const ceiling = Math.ceil(position);
+    const pos = position - floor;
+
+    const base = values[floor];
+    const target = values[ceiling];
+    const delta = target - base;
+
+    const difference = Math.round(delta * pos);
+    const result = base + difference;
+
+    return result;
+}
+
 export default function CowCount(props) {
-    const [position, setPosition] = useState(3);
 
-    const value = useMemo(() => {
-        const floor = Math.floor(position);
-        const ceiling = Math.ceil(position);
-        const pos = position - floor;
+    const position = useMemo(() => valueToPosition(props.value), [props.value]);
 
-        const base = values[floor];
-        const target = values[ceiling];
-        const delta = target - base;
-
-        const difference = Math.floor(delta * pos);
-        const result = base + difference;
-
-        return result;
-    }, [position])
-
-    useEffect(() => props.onChange?.(value), [value, props.onChange]);
+    const change = useCallback((event) => {
+        props.onChange?.(positionToValue(event.target.value))
+    }, [position, props.onChange]);
 
     return <div> 
         <input type="range" 
             id={props.id}
             list="cow-count" 
             value={position}
-            onChange={e => setPosition(e.target.value)}
+            onChange={change}
             min={0}
             max={6}
             step={0.01}
@@ -35,7 +52,7 @@ export default function CowCount(props) {
         <output 
             htmlFor={props.id} 
             style={{left: `${position*13.5 + 2}%`}}>
-                {value}
+                {props.value}
         </output>
         <datalist id="cow-count">
             <option value={0}>10</option>

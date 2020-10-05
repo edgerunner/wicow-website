@@ -120,7 +120,7 @@ const questionMachine = Machine({
         { id: "bus", src: "bus" }
     ],
     on: {
-        UPDATE_COW_COUNT: {
+        UPDATED_COW_COUNT: {
             actions: assign({ cowCount: (context, event) => event.count })
         }
     }
