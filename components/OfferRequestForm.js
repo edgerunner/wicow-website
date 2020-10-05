@@ -63,7 +63,7 @@ const offerRequestMachine = Machine({
                     on: { 
                         ANOTHER: {
                             target: "#OfferRequestForm.form",
-                            actions: assign({ name: "", email: "", phone: "" })
+                            actions: assign({ name: "", email: "", phone: "", postPartumTracking: true })
                         }
                     }
                 },
