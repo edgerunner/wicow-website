@@ -340,6 +340,22 @@ div.CowCount {
     color: var(--dark);
 }
 
+.CowCount[disabled] {
+    background-color: var(--darkish);
+}
+
+.CowCount[disabled] input[type=range]::-webkit-slider-thumb {
+    background-color: var(--darkish);
+}
+
+.CowCount[disabled] input[type=range]::-moz-range-thumb {
+    background-color: var(--darkish);
+}
+
+.CowCount[disabled] output {
+    color: var(--light);
+}
+
 .avatar img {
     height: 1.2em;
     border-radius: 50%;

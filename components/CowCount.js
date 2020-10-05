@@ -39,7 +39,7 @@ export default function CowCount(props) {
         props.onChange?.(positionToValue(event.target.value))
     }, [position, props.onChange]);
 
-    return <div className="CowCount"> 
+    return <div className="CowCount" disabled={props.disabled}> 
         <input type="range" 
             id={props.id}
             list="cow-count" 
@@ -48,6 +48,7 @@ export default function CowCount(props) {
             min={0}
             max={6}
             step={0.01}
+            disabled={props.disabled}
             />
         <output 
             htmlFor={props.id} 

@@ -183,7 +183,10 @@ export default function OfferRequestForm() {
                 />
 
             <label htmlFor="offer-request-cows">{t.cowCount.label}</label>
-            <CowCount id="offer-request-cows" value={cowCount} onChange={UPDATE_COW_COUNT}/>
+            <CowCount id="offer-request-cows" 
+                value={cowCount} onChange={UPDATE_COW_COUNT}
+                disabled={!state.matches("form")}
+                />
 
             <div className="tracking-types">
                 <label>{t.tracking.start} </label>
