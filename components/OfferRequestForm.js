@@ -64,6 +64,12 @@ const offerRequestMachine = Machine({
                         ANOTHER: {
                             target: "#OfferRequestForm.form",
                             actions: assign({ name: "", email: "", phone: "", postPartumTracking: true })
+                        },
+                        UPDATED_COW_COUNT: {
+                            actions: [
+                                actions.raise("ANOTHER"),
+                                actions.raise((c,e) => e)
+                            ]
                         }
                     }
                 },
