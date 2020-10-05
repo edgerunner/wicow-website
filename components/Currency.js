@@ -11,9 +11,9 @@ export function Currency({ value, unit, fallback = null }) {
     const parts = formatter.formatToParts(value);
 
     return <data value={value}>{
-        parts.map(part => 
+        parts.map((part, index) => 
             part.type === "currency" 
-            ? <small>{part.value}</small>
+            ? <small key={index}>{part.value}</small>
             : part.value
         )
     }</data>;
