@@ -15,7 +15,7 @@ const offerRequestMachine = Machine({
         email: "",
         phone: "",
         cowCount: 100,
-        postPartumTracking: false
+        postPartumTracking: true
     },
     initial: "form",
     states: {
@@ -133,6 +133,14 @@ export default function OfferRequestForm() {
         });
     }
 
+    function update_check(event) {
+        send({
+            type: "UPDATE",
+            field: event.target.name,
+            value: event.target.checked
+        });
+    }
+
     function submit(event) {
         event.preventDefault();
         send("SUBMIT");
@@ -178,15 +186,22 @@ export default function OfferRequestForm() {
             <CowCount id="offer-request-cows" value={cowCount} onChange={UPDATE_COW_COUNT}/>
 
             <div className="tracking-types">
-                <label>I intend to track</label>
+                <label>{t.tracking.start} </label>
                 <label>
                     <input type="checkbox" checked disabled />
-                    calving and 
+                    {t.tracking.calving}
                 </label>
+                <label> {t.tracking.mid} </label>
                 <label>
-                    <input type="checkbox" defaultChecked />
-                    post-partum
+                    <input type="checkbox"
+                        name="postPartumTracking"
+                        checked={state.context.postPartumTracking} 
+                        onChange={update_check} 
+                        disabled={!state.matches("form")}
+                        />
+                    {t.tracking.postPartum}
                 </label>
+                <label> {t.tracking.end}</label>
             </div>
 
 

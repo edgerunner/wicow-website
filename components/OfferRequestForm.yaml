@@ -14,6 +14,13 @@ en:
   cowCount:
     label: The number of dairy cows in my farm is
 
+  tracking:
+    start: I intend to track
+    calving: calving
+    mid: and
+    postPartum: post-partum
+    end: ""
+
   button:
     submit: Request an offer
     invalid: Complete the form first
@@ -43,6 +50,13 @@ tr:
   cowCount:
     label: Çiftliğimdeki sağmal inek sayısı
 
+  tracking:
+    start: ""
+    calving: Doğum
+    mid: ve
+    postPartum: lohusa
+    end: izlemesi yapmak istiyorum
+
   button:
     submit: Teklif iste
     invalid: Önce formu doldur
@@ -70,6 +84,13 @@ de:
 
   cowCount:
     label: Die Anzahl der Milchkühe in meiner Farm ist
+
+  tracking:
+    start: Ich beabsichtige,
+    calving: das Kalben
+    mid: und
+    postPartum: die Geburt
+    end: nach der Geburt zu verfolgen
 
   button:
     submit: Bitte um ein Angebot
