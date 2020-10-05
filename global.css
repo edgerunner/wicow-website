@@ -149,7 +149,7 @@ form {
     border-radius: .5rem;
     display: grid;
     grid-auto-flow: row;
-    grid-auto-rows: 2rem;
+    grid-auto-rows: minmax(2rem, min-content);
     grid-gap: .5rem;
     font-size: 1.2rem;
 }
@@ -194,6 +194,38 @@ form button:disabled {
     box-shadow: 0 0 0 1px var(--dark) inset;
 }
 
+form input[type="checkbox"] {
+    appearance: none;
+    width: 2ch;
+    height: 2ch;
+    margin: 0;
+    margin-inline-start: 1ch;
+    margin-inline-end: .5ch;
+    vertical-align: middle;
+    border: solid .125rem var(--dark);
+    background-color: var(--dark);
+}
+
+form input[type="checkbox"]:checked {
+    background-color: var(--wicow-blue);
+}
+
+form input[type="checkbox"]:disabled {
+    position: relative;
+    overflow: hidden;
+}
+
+form input[type="checkbox"]:disabled::after {
+    position: absolute;
+    content: "◥";
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    line-height: 100%;
+    color: var(--darkish);
+}
+
 form ::placeholder {
     color: var(--darkish);
 }
@@ -224,6 +256,104 @@ input:-webkit-autofill:active {
     transition-property: background-color, color;
     transition-duration: 5000s;
     transition-timing-function: ease-in;
+}
+
+div.CowCount {
+    position: relative;
+    z-index: 0;
+    grid-row: span 2;
+    border-radius: .75rem;
+    background: var(--dark);
+    font-size: 1rem;
+}
+.CowCount input[type="range"] {
+    appearance: none;
+    background: transparent;
+    width: 100%;
+    min-height: 4rem;
+    height: 100%;
+    border: solid .25rem var(--darkish);
+    border-radius: .5rem;
+    margin: 0;
+    padding: .25rem;
+}
+
+.CowCount input[type="range"]:focus {
+    outline: none;
+    box-shadow: 0 0 0 .03125rem var(--light)
+}
+
+.CowCount input[type=range]::-webkit-slider-runnable-track {
+    align-self: stretch;
+}
+
+.CowCount input[type=range]::-webkit-slider-thumb {
+    appearance: none;
+    height: 100%;
+    width: 14.28%;
+    border-radius: .25rem;
+    background: var(--wicow-blue);
+    border: none;
+    cursor: pointer;
+    margin: 0; /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
+    border: 1px solid var(--dark);
+}
+
+.CowCount input[type=range]::-moz-range-thumb {
+    appearance: none;
+    height: 3rem;
+    width: 14.28%;
+    border-radius: .25rem;
+    background: var(--wicow-blue);
+    border: none;
+    cursor: pointer;
+    margin: 0;
+    border: 1px solid var(--dark);
+}
+
+.CowCount datalist {
+    display: flex;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 0 .5rem;
+    margin: .125rem;
+    align-items: center;
+    justify-content: space-around;
+    z-index: -1;
+}
+.CowCount datalist > option {
+    display: block;
+    color: var(--darkish);
+    text-align: center;
+    width: 5ch;
+}
+.CowCount output {
+    position: absolute;
+    width: 14.28%;
+    top: .5em;
+    bottom: 0;
+    text-align: center;
+    pointer-events: none;
+    color: var(--dark);
+}
+
+.CowCount[disabled] {
+    background-color: var(--darkish);
+}
+
+.CowCount[disabled] input[type=range]::-webkit-slider-thumb {
+    background-color: var(--darkish);
+}
+
+.CowCount[disabled] input[type=range]::-moz-range-thumb {
+    background-color: var(--darkish);
+}
+
+.CowCount[disabled] output {
+    color: var(--light);
 }
 
 .avatar img {
@@ -299,6 +429,7 @@ dd {
         background-repeat: no-repeat;
         background-position: bottom right;
         content: "";
+        pointer-events: none;
     }
 
     #know-your-cows h1:after {
@@ -491,13 +622,12 @@ dd {
         background-size: 30vw;
     }
 
-    #horsemouth aside.QuestionForm,
-    #sit-back-and-relax aside.BenefitCalculator,
-    #no-nonsense aside.AlertsSummary {
+    aside {
         position: absolute;
         left: 0;
         top: 10rem;
         width: calc(40vw - 10rem);
+        z-index: 1;
     }
 
     #no-nonsense::after {
@@ -548,9 +678,7 @@ dd {
         background-position: left center;
     }
 
-    #horsemouth aside.QuestionForm,
-    #sit-back-and-relax aside.BenefitCalculator,
-    #no-nonsense aside.AlertsSummary {
+    aside {
         width: calc(25vw - 8rem);
         top: 12rem;
     }

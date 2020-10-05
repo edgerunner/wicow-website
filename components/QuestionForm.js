@@ -2,7 +2,7 @@ import { Machine, assign } from "xstate";
 import { useMachine } from "@xstate/react";
 import "./xStateInspector";
 import { useEffect } from "react";
-import {useTranslation, Translate} from '../hooks';
+import {useTranslation, Translate, useEventBus} from '../hooks';
 import translations from './QuestionForm.yaml'; 
 import { Match, State } from "./Match";
 
@@ -110,11 +110,19 @@ const questionMachine = Machine({
             }
         }
     },
-    invoke: {
-        id: "agent",
-        src: "agentMachine",
-        data: { language: context => context.language },
-        onDone: { actions: assign({ agent: (context, event) => event.data.agent }) }
+    invoke: [
+        {
+            id: "agent",
+            src: "agentMachine",
+            data: { language: context => context.language },
+            onDone: { actions: assign({ agent: (context, event) => event.data.agent }) }
+        },
+        { id: "bus", src: "bus" }
+    ],
+    on: {
+        UPDATED_COW_COUNT: {
+            actions: assign({ cowCount: (context, event) => event.count })
+        }
     }
 }, {
     actions: {
@@ -147,8 +155,13 @@ const questionMachine = Machine({
 
 export default function QuestionForm() {
     const t = useTranslation(translations);
+    const bus = useEventBus();
 
-    const [state, send] = useMachine(questionMachine, { devTools: true, context: { language: t.language } });
+    const [state, send] = useMachine(questionMachine, { 
+        devTools: true, 
+        context: { language: t.language },
+        services: { bus }
+    });
 
     function update(event) {
         send({
