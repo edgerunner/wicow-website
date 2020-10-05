@@ -640,7 +640,7 @@ dd {
 
 }
 
-@media only screen and (min-width: 96rem) {
+@media only screen and (min-width: 120rem) {
     section, header {
         padding-left: calc(25vw - 6rem);
     }
