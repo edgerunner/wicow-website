@@ -1,0 +1,106 @@
+en:
+  name:
+    label: Hello, my name is
+    placeholder: Peter? Simone? Rahul?
+
+  email:
+    label: my email address is
+    placeholder: you@yourfarm.com
+
+  phone:
+    label: and my phone number is
+    placeholder: "+44-12-345-678"
+
+  cowCount:
+    label: The number of dairy cows in my farm is
+
+  tracking:
+    start: I intend to track
+    calving: calving
+    mid: and
+    postPartum: post-partum
+    end: ""
+
+  button:
+    submit: Request an offer
+    invalid: Complete the form first
+    done:
+      label: We received your request and will get back
+        to you as soon as possible
+      text: Make another request
+    error:
+      label: There was a problem sending your request
+      text: Retry
+    pending: Sending request…
+  language: en
+
+tr:
+  name:
+    label: Merhaba, adım
+    placeholder: Burak? Zeynep? Özgür?
+
+  email:
+    label: e-posta adresim
+    placeholder: sen@ciftligin.com
+
+  phone:
+    label: ve telefon numaram da
+    placeholder: "+90-532-123-4567"
+
+  cowCount:
+    label: Çiftliğimdeki sağmal inek sayısı
+
+  tracking:
+    start: ""
+    calving: Doğum
+    mid: ve
+    postPartum: lohusa
+    end: izlemesi yapmak istiyorum
+
+  button:
+    submit: Teklif iste
+    invalid: Önce formu doldur
+    done:
+      label: Talebini aldık
+      text: Bir talep daha yap
+    error:
+      label: Eyvah, bir sorun var…
+      text: Tekrar dene
+    pending: Talep yolda…
+  language: tr
+
+de:
+  name:
+    label: Hallo, ich heiße
+    placeholder: Peter? Simone? Rahul?
+
+  email:
+    label: meine E-Mail-Adresse ist
+    placeholder: sie@ihremilchfarm.com
+
+  phone:
+    label: und meine Telefonnummer ist
+    placeholder: "+49-12-345-678"
+
+  cowCount:
+    label: Die Anzahl der Milchkühe in meiner Farm ist
+
+  tracking:
+    start: Ich beabsichtige,
+    calving: das Kalben
+    mid: und
+    postPartum: die Geburt
+    end: nach der Geburt zu verfolgen
+
+  button:
+    submit: Bitte um ein Angebot
+    invalid: Füllen Sie zuerst das Formular aus
+    done:
+      label: Wir haben Ihre Anfrage erhalten und werden zurückkommen
+        Ihnen so schnell wie möglich
+      text: Stellen Sie eine weitere Anfrage
+    error:
+      label: Beim Senden Ihrer Anfrage ist ein Problem aufgetreten
+      text: Wiederholen
+    pending: Anfrage wird versendet…
+  language: de

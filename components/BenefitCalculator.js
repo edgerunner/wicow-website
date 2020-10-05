@@ -16,11 +16,17 @@ const machine = Machine({
     states: {
         CowCount: {
             on: {
-                UPDATE_COW_COUNT: { 
+                UPDATE_COW_COUNT: {
                     actions: [
-                        assign({ cowCount: (_c, event) => event.count }),
-                        actions.forwardTo("bus")
+                        assign({ cowCount: (context, event) => event.count }),
+                        actions.send((context, event) => ({
+                            ...event,
+                            type: "UPDATED_COW_COUNT"
+                        }),{ to: "bus" })
                     ]
+                },
+                UPDATED_COW_COUNT: {
+                    actions: assign({ cowCount: (context, event) => event.count })
                 }
             },
         },
@@ -134,7 +140,6 @@ export default function BenefitCalculator() {
 
 function ExtraCows({state: { context: { extraCows }, value: { ExtraCows: work } }}) {
     const { ExtraCows: keys } = useTranslation(translations);
-    // return <li><Translate keys={keys} mapping={{ extraCows, work }}/></li>;
     return <>
         <dt><Translate keys={keys.term} mapping={{ work }}/></dt>
         <dd><Translate keys={keys.value} mapping={{ extraCows, work }}/></dd>
