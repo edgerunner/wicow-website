@@ -194,6 +194,38 @@ form button:disabled {
     box-shadow: 0 0 0 1px var(--dark) inset;
 }
 
+form input[type="checkbox"] {
+    appearance: none;
+    width: 2ch;
+    height: 2ch;
+    margin: 0;
+    margin-inline-start: 1ch;
+    margin-inline-end: .5ch;
+    vertical-align: middle;
+    border: solid .125rem var(--dark);
+    background-color: var(--dark);
+}
+
+form input[type="checkbox"]:checked {
+    background-color: var(--wicow-blue);
+}
+
+form input[type="checkbox"]:disabled {
+    position: relative;
+    overflow: hidden;
+}
+
+form input[type="checkbox"]:disabled::after {
+    position: absolute;
+    content: "◥";
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    line-height: 100%;
+    color: var(--darkish);
+}
+
 form ::placeholder {
     color: var(--darkish);
 }

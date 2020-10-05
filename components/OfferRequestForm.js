@@ -177,6 +177,19 @@ export default function OfferRequestForm() {
             <label htmlFor="offer-request-cows">{t.cowCount.label}</label>
             <CowCount id="offer-request-cows" value={cowCount} onChange={UPDATE_COW_COUNT}/>
 
+            <div className="tracking-types">
+                <label>I intend to track</label>
+                <label>
+                    <input type="checkbox" checked disabled />
+                    calving and 
+                </label>
+                <label>
+                    <input type="checkbox" defaultChecked />
+                    post-partum
+                </label>
+            </div>
+
+
             <Match state={state}>
                 <State match="form.invalid">
                     <button id="request-offer" disabled>{t.button.invalid}</button>
