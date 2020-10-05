@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "debug": "NODE_OPTIONS='--inspect' next dev",
   },
   "dependencies": {
     "@xstate/inspect": "^0.1.1",
