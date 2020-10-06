@@ -192,9 +192,11 @@ export default function OfferRequestForm() {
                 value={state.context.phone} onChange={update}
                 />
 
+            <label htmlFor="offer-request-location">{t.location.label}</label>
             <GeoapifyContext apiKey={geoapifyApiKey}>
                 <GeoapifyGeocoderAutocomplete 
-                    placeholder="Enter address here"
+                    id="offer-request-location"
+                    placeholder={t.location.placeholder}
                     type="city"
                     lang={t.language}
                     placeSelect={console.log}
