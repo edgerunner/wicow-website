@@ -67,7 +67,13 @@ const offerRequestMachine = Machine({
                     on: { 
                         ANOTHER: {
                             target: "#OfferRequestForm.form",
-                            actions: assign({ name: "", email: "", phone: "", postPartumTracking: true })
+                            actions: assign({ 
+                                name: "", 
+                                email: "", 
+                                phone: "", 
+                                postPartumTracking: true,
+                                location: null
+                            })
                         },
                         UPDATED_COW_COUNT: {
                             actions: [
@@ -203,7 +209,7 @@ export default function OfferRequestForm() {
             <label htmlFor="offer-request-location">{t.location.label}</label>
             <GeoapifyContext apiKey={geoapifyApiKey}>
                 <GeoapifyGeocoderAutocomplete 
-                    id="offer-request-location"
+                    value={state.context.location?.properties.formatted}
                     placeholder={t.location.placeholder}
                     type="city"
                     lang={t.language}
