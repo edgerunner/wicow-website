@@ -1065,6 +1065,18 @@
     lodash "^4.17.19"
     to-fast-properties "^2.0.0"
 
+"@geoapify/geocoder-autocomplete@^1.1.1", "@geoapify/geocoder-autocomplete@^1.1.2":
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/@geoapify/geocoder-autocomplete/-/geocoder-autocomplete-1.1.2.tgz#f07d099b57e4a416ce9e4b138e3aa387e66a2edc"
+  integrity sha512-BkSvAE/pECEHSvP5NTHHBx4cfM5NYAYS3zYSugy3CtvKZhHcO05N9uJK330DF+Q3gaZ3vhEWOaw8NQPBBlgG4Q==
+
+"@geoapify/react-geocoder-autocomplete@^1.1.1":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@geoapify/react-geocoder-autocomplete/-/react-geocoder-autocomplete-1.1.1.tgz#0e690bc9e4f718cdf79b0b219a6c19cdec7574ca"
+  integrity sha512-rhtGfImzhTzyrrXpIDMn9zq73jopUUA3VVwKNhtFktOV0kIubbW/i2qdGQa/10mizBvoI7a1ACOr2kyPLIBQfw==
+  dependencies:
+    "@geoapify/geocoder-autocomplete" "^1.1.1"
+
 "@mdx-js/loader@^1.6.1":
   version "1.6.16"
   resolved "https://registry.yarnpkg.com/@mdx-js/loader/-/loader-1.6.16.tgz#5a9c3b0ab41885cd2df85bcf360644ca63e44e88"

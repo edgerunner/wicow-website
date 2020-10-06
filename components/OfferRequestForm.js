@@ -6,7 +6,11 @@ import {useTranslation, useEventBus} from '../hooks';
 import translations from './OfferRequestForm.yaml'; 
 import { Match, State } from "./Match";
 import CowCount from "./CowCount";
+import { GeoapifyGeocoderAutocomplete, GeoapifyContext } 
+    from "@geoapify/react-geocoder-autocomplete";
 
+
+const geoapifyApiKey = process.env.NEXT_PUBLIC_GEOAPIFY_API_KEY;
 
 const offerRequestMachine = Machine({
     id: "OfferRequestForm",
@@ -63,7 +67,13 @@ const offerRequestMachine = Machine({
                     on: { 
                         ANOTHER: {
                             target: "#OfferRequestForm.form",
-                            actions: assign({ name: "", email: "", phone: "", postPartumTracking: true })
+                            actions: assign({ 
+                                name: "", 
+                                email: "", 
+                                phone: "", 
+                                postPartumTracking: true,
+                                location: null
+                            })
                         },
                         UPDATED_COW_COUNT: {
                             actions: [
@@ -147,6 +157,14 @@ export default function OfferRequestForm() {
         });
     }
 
+    function update_location(location) {
+        send({
+            type: "UPDATE",
+            field: "location",
+            value: location
+        });
+    }
+
     function submit(event) {
         event.preventDefault();
         send("SUBMIT");
@@ -159,6 +177,14 @@ export default function OfferRequestForm() {
         .map(id => document.getElementById(`offer-request-${id}`))
         .map(element => { element.value = `${element.value}`})
     });
+
+    // set disabled state for the GeoApify location input
+    // imperative code required to reach the component internals
+    useEffect(() => {
+        document
+            .getElementsByClassName("geoapify-autocomplete-input")[0]
+            .disabled = !state.matches("form");
+    }, [state.matches("form")]) 
 
     const { cowCount } = state.context; 
     const UPDATE_COW_COUNT = useCallback((count) => { send({ type: "UPDATE_COW_COUNT", count }) }, []);
@@ -188,6 +214,18 @@ export default function OfferRequestForm() {
                 value={state.context.phone} onChange={update}
                 />
 
+            <label htmlFor="offer-request-location">{t.location.label}</label>
+            <GeoapifyContext apiKey={geoapifyApiKey}>
+                <GeoapifyGeocoderAutocomplete 
+                    value={state.context.location?.properties.formatted}
+                    placeholder={t.location.placeholder}
+                    type="city"
+                    lang={t.language}
+                    biasByCountryCode={t.location.bias}
+                    placeSelect={update_location}
+                />
+            </GeoapifyContext>
+
             <label htmlFor="offer-request-cows">{t.cowCount.label}</label>
             <CowCount id="offer-request-cows" 
                 value={cowCount} onChange={UPDATE_COW_COUNT}
@@ -212,7 +250,6 @@ export default function OfferRequestForm() {
                 </label>
                 <label> {t.tracking.end}</label>
             </div>
-
 
             <Match state={state}>
                 <State match="form.invalid">
