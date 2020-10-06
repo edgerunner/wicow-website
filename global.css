@@ -410,7 +410,87 @@ dd {
     font-variant-numeric: oldstyle-nums;
 }
 
+/* GeoApify component styling */
 
+.geocoder-container {
+    display: grid;
+    grid-template-columns: 1fr 2rem;
+    grid-auto-rows: 2rem;
+}
+
+input.geoapify-autocomplete-input {
+    grid-column: 1 / -1;
+    grid-row: 1;
+    padding-inline-end: 2rem;
+}
+
+.geoapify-close-button {
+    grid-row: 1;
+    grid-column: 2;
+    align-self: end;
+    justify-self: center;
+    visibility: hidden;
+}
+
+.geoapify-close-button.visible {
+    visibility: visible;
+}
+
+.geoapify-autocomplete-items {
+    position: absolute;
+    top: calc(100% + .25rem);
+    left: 0;
+    right: 0;
+    background-color: var(--dark);
+    border-radius: .25rem;
+    display: grid;
+    grid-auto-rows: minmax(2rem, min-content);
+    grid-gap: 1rem;
+    z-index: 1;
+    padding: 1rem;
+    border: solid .25rem var(--wicow-blue);
+    box-shadow: 0 0 0 .25rem var(--dark);
+}
+
+.geoapify-autocomplete-item span.icon {
+    color: var(--darkish);
+    transform: scale(.75);
+}
+
+.geoapify-autocomplete-item {
+    display: grid;
+    grid-template-columns: 2rem max-content 1fr;
+    grid-gap: .5rem;
+    align-items: center;
+}
+
+.geoapify-autocomplete-item span.address {
+    display: contents;
+}
+
+.geoapify-autocomplete-item span.secondary-part {
+    font-weight: 300;
+}
+
+.geoapify-autocomplete-item:hover,
+.geoapify-autocomplete-item.active {
+    background-color: var(--wicow-blue);
+    margin: -.5rem;
+    padding-inline-start: .5rem;
+    color: var(--dark);
+}
+
+.geoapify-autocomplete-item:hover span.icon,
+.geoapify-autocomplete-item.active span.icon {
+    color: var(--light);
+}
+
+.geoapify-autocomplete-item strong {
+    font: inherit;
+    text-decoration: underline;
+}
+
+/* End GeoApify */
 
 @media only screen and (min-width: 24rem) {
     body {
