@@ -151,6 +151,14 @@ export default function OfferRequestForm() {
         });
     }
 
+    function update_location(location) {
+        send({
+            type: "UPDATE",
+            field: "location",
+            value: location
+        });
+    }
+
     function submit(event) {
         event.preventDefault();
         send("SUBMIT");
@@ -199,7 +207,7 @@ export default function OfferRequestForm() {
                     placeholder={t.location.placeholder}
                     type="city"
                     lang={t.language}
-                    placeSelect={console.log}
+                    placeSelect={update_location}
                 />
             </GeoapifyContext>
 
