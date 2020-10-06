@@ -14,6 +14,7 @@ en:
   location:
     label: My farm is located in
     placeholder: Copenhagen, Denmark
+    bias: [gb, se, dk, "no", be, nl]
 
   cowCount:
     label: The number of dairy cows in my farm is
@@ -54,6 +55,7 @@ tr:
   location:
     label: Çiftliğimin konumu
     placeholder: Balıkesir, Türkiye
+    bias: [tr, de, az, nl]
 
   cowCount:
     label: Çiftliğimdeki sağmal inek sayısı
@@ -93,6 +95,7 @@ de:
   location:
     label: Mein Hof befindet sich in
     placeholder: Berlin, Deustchland
+    bias: [de, at, ch, be, nl]
 
   cowCount:
     label: Die Anzahl der Milchkühe in meiner Farm ist

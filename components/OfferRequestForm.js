@@ -221,6 +221,7 @@ export default function OfferRequestForm() {
                     placeholder={t.location.placeholder}
                     type="city"
                     lang={t.language}
+                    biasByCountryCode={t.location.bias}
                     placeSelect={update_location}
                 />
             </GeoapifyContext>
