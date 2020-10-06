@@ -6,7 +6,11 @@ import {useTranslation, useEventBus} from '../hooks';
 import translations from './OfferRequestForm.yaml'; 
 import { Match, State } from "./Match";
 import CowCount from "./CowCount";
+import { GeoapifyGeocoderAutocomplete, GeoapifyContext } 
+    from "@geoapify/react-geocoder-autocomplete";
 
+
+const geoapifyApiKey = process.env.NEXT_PUBLIC_GEOAPIFY_API_KEY;
 
 const offerRequestMachine = Machine({
     id: "OfferRequestForm",
@@ -188,6 +192,15 @@ export default function OfferRequestForm() {
                 value={state.context.phone} onChange={update}
                 />
 
+            <GeoapifyContext apiKey={geoapifyApiKey}>
+                <GeoapifyGeocoderAutocomplete 
+                    placeholder="Enter address here"
+                    type="city"
+                    lang={t.language}
+                    placeSelect={console.log}
+                />
+            </GeoapifyContext>
+
             <label htmlFor="offer-request-cows">{t.cowCount.label}</label>
             <CowCount id="offer-request-cows" 
                 value={cowCount} onChange={UPDATE_COW_COUNT}
@@ -212,7 +225,6 @@ export default function OfferRequestForm() {
                 </label>
                 <label> {t.tracking.end}</label>
             </div>
-
 
             <Match state={state}>
                 <State match="form.invalid">
