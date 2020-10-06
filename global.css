@@ -490,6 +490,10 @@ input.geoapify-autocomplete-input {
     text-decoration: underline;
 }
 
+input.geoapify-autocomplete-input:disabled + .geoapify-close-button.visible {
+    visibility: hidden;
+}
+
 /* End GeoApify */
 
 @media only screen and (min-width: 24rem) {

@@ -178,6 +178,14 @@ export default function OfferRequestForm() {
         .map(element => { element.value = `${element.value}`})
     });
 
+    // set disabled state for the GeoApify location input
+    // imperative code required to reach the component internals
+    useEffect(() => {
+        document
+            .getElementsByClassName("geoapify-autocomplete-input")[0]
+            .disabled = !state.matches("form");
+    }, [state.matches("form")]) 
+
     const { cowCount } = state.context; 
     const UPDATE_COW_COUNT = useCallback((count) => { send({ type: "UPDATE_COW_COUNT", count }) }, []);
 
