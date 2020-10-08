@@ -22,16 +22,13 @@ const machine = Machine({
                             }
                         },
                         stale: {
-                            entry: actions.send("STALE")
+                            entry: actions.raise("STALE")
                         }
                     }
                 }
             },
             on: {
-                SUCCESS: {
-                    target: "data.some.fresh",
-                    actions: assign((ctx,event) => event.data)
-                }
+                SUCCESS: "data.some.fresh"
             }
         },
         transfer: {
@@ -40,21 +37,16 @@ const machine = Machine({
                 pending: {
                     invoke: {
                         src: "fetchAlerts",
-                        onDone: {
-                            target: "done",
-                            actions: actions.raise((ctx, event) => ({
-                                type: "SUCCESS",
-                                data: event.data
-                            }))
-                        },
-                        onError: {
-                            target: "failed",
-                            actions: actions.log((ctx, event) => event.data)
-                        }
+                        onDone: "done",
+                        onError: "failed"
                     }
                 },
-                done: {},
+                done: {
+                    type: "final",
+                    entry: ["saveData", actions.raise("SUCCESS")]
+                },
                 failed: {
+                    entry: "logError",
                     after: {
                         retry_timeout: "pending"
                     }
@@ -66,6 +58,10 @@ const machine = Machine({
         }
     }
 }, {
+    actions: {
+        saveData: assign((ctx,event) => event.data),
+        logError: actions.log((ctx, event) => event, "Alert summary data error")
+    },
     delays: { 
         retry_timeout: parseInt(process.env.NEXT_PUBLIC_FETCH_RETRY_INTERVAL), 
         polling_timeout: parseInt(process.env.NEXT_PUBLIC_FETCH_POLLING_INTERVAL) 
